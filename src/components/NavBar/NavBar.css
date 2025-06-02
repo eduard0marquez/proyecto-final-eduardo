@@ -1,0 +1,25 @@
+:root {
+    --primary-color: #fd671a;
+  }
+
+.logo{
+    width: 8rem;
+    border: 0;   
+}
+.buscar{
+    background-color: var(--primary-color);
+    border: var(--primary-color);
+}
+.FaHeart{
+    color: var(--primary-color);
+}
+/* Invisible texto */
+figcaption {
+    display:none; 
+    transition: all .5s;
+  }
+  /* Visible texto */
+  figure:hover > figcaption {
+    display:block;
+    transition: all .5s;
+  }
