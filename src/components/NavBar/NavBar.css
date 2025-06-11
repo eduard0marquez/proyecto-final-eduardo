@@ -9,10 +9,9 @@
 .buscar{
     background-color: var(--primary-color);
     border: var(--primary-color);
+    color: aliceblue;
 }
-.FaHeart{
-    color: var(--primary-color);
-}
+
 /* Invisible texto */
 figcaption {
     display:none; 
@@ -23,3 +22,14 @@ figcaption {
     display:block;
     transition: all .5s;
   }
+  .buscar:hover{
+    background-color: #cf4a07;
+    border: #cf4a07;
+    color: aliceblue;
+}
+
+.buscar:active{
+  background-color: #cf4a07;
+  border: #cf4a07;
+  color: aliceblue;
+}

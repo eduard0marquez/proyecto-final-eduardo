@@ -1,9 +1,11 @@
 import React from 'react'
+import { HeaderHome } from '../../components'
 
 function Shop() {
   return (
-    <div>
+    <div className='vh-100'>
       Shop
+      <HeaderHome></HeaderHome>
     </div>
   )
 }

@@ -1,0 +1,10 @@
+
+:root {
+    --primary-color: #fd671a;
+  }
+.icon{
+   padding: 5px;
+}
+a{
+    color:var(--primary-color) ;
+}

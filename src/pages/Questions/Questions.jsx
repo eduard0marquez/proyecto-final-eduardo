@@ -1,11 +1,12 @@
-import React from 'react'
+import { FrecuentlyQuestions } from "../../components";
 
 function Questions() {
   return (
     <div>
-       Questions
+     
+      <FrecuentlyQuestions />
     </div>
-  )
+  );
 }
 
-export default Questions
+export default Questions;
