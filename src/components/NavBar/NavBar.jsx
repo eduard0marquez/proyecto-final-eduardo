@@ -1,14 +1,36 @@
 import { useState } from "react";
-import { Container, Nav, Navbar, Form, Button, Modal } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  Form,
+  Button,
+  Modal,
+  Dropdown,
+  DropdownButton,
+  DropdownMenu,
+  NavDropdown,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../../public/assets/logo.png";
 import "./NavBar.css";
-import { FaHeart, FaCartPlus, FaQuestionCircle, FaUser } from "react-icons/fa";
-import Login from "../Login/LoginRegistrer";
+import {
+  FaHeart,
+  FaCartPlus,
+  FaQuestionCircle,
+  FaUser,
+  FaSignInAlt,
+  FaUserPlus,
+  FaCog,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import Login from "../Login/Login1";
+import Register from "../Login/Register";
 
 function NavBar() {
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no)
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
   return (
     <Container>
       <Navbar expand="lg" className="fixed-top bg-body-tertiary shadow ">
@@ -34,17 +56,15 @@ function NavBar() {
             </Nav>
 
             <Nav className="me-auto justify-content-end w-100">
-              <Nav.Link href="/" className="active text-uppercase">
-                Inicio
+              <Nav.Link href="/" className="btn active text-uppercase">
+                <span className="menuprincipal">Inicio</span>
               </Nav.Link>
-              <Nav.Link href="/about" className="active text-uppercase">
-                Nosotros
+              <Nav.Link href="/about" className="btn active text-uppercase">
+                <span className="menuprincipal">Nosotros</span>
               </Nav.Link>
-              <Nav.Link href="/shop" className="active text-uppercase">
-                Tienda
-              </Nav.Link>
-              <Nav.Link href="/contact" className="active text-uppercase">
-                Contacto
+
+              <Nav.Link href="/contact" className="btn active text-uppercase">
+                <span className="menuprincipal">Contacto</span>
               </Nav.Link>
 
               <a type="button" className="btn " href="/questions">
@@ -52,7 +72,7 @@ function NavBar() {
               </a>
 
               <a type="button" className="btn " href="/loved">
-                <FaHeart color="red" size={25} />
+                <FaHeart color="red" size={25} className="heart" />
               </a>
 
               <a type="button" className="btn " href="/cart">
@@ -60,18 +80,42 @@ function NavBar() {
               </a>
 
               {/*Se crea el boton y se cambia el estado del modal a "true" para mostrarlo */}
-              <a
-                type="button"
-                className="btn"
-                onClick={() => setIsLoginOpen(true)}
+
+              <NavDropdown
+                title={<FaUser color="#fd671a" size={25} />}
+                id="basic-nav-dropdown"
+                className="btnn"
               >
-                <FaUser color="#fd671a" size={25} />
-              </a>
+                <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
+                  <FaSignInAlt color="#fd671a" size={15} />
+                  <span className=" submenubtn">Iniciar Sesion</span>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => setIsRegistrerOpen(true)}>
+                  <FaUserPlus color="#fd671a" size={15} />
+                  <span className="submenubtn">Registrarse</span>
+                </Dropdown.Item>
+                <Dropdown.Item href="#link3">
+                  <FaCog color="#fd671a" size={15} />
+                  <span className="submenubtn">Mi perfil</span>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
+                  <FaSignOutAlt color="#fd671a" size={15} />
+                  <span className=" submenubtn">Cerrar Sesion</span>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="/catalog">Catalogos</Dropdown.Item>
+                <Dropdown.Item href="#link4">Pedidos</Dropdown.Item>
+                <Dropdown.Item href="#link4">Reportes</Dropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <Login isOpen={isLoginOpen} closeModal={() => setIsLoginOpen(false)} />
+      <Register
+        isOpen={isRegistrerOpen}
+        closeModal={() => setIsRegistrerOpen(false)}
+      />
     </Container>
   );
 }

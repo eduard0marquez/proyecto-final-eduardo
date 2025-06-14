@@ -1,5 +1,6 @@
 :root {
     --primary-color: #fd671a;
+    --second-color:#cf4a07;
   }
 
 .logo{
@@ -23,13 +24,28 @@ figcaption {
     transition: all .5s;
   }
   .buscar:hover{
-    background-color: #cf4a07;
-    border: #cf4a07;
+    background-color: var(--second-color);
+    border: var(--second-color);
     color: aliceblue;
 }
 
 .buscar:active{
-  background-color: #cf4a07;
-  border: #cf4a07;
+  background-color: var(--second-color);
+  border: var(--second-color);
   color: aliceblue;
+}
+.btnn{
+  text-align: center;
+}
+.active:hover{
+  
+  .menuprincipal{
+    color: var(--primary-color);
+  }
+}
+.submenubtn{
+  margin: 4px;
+}
+.heart:hove{
+  transform: scale(1.5);
 }

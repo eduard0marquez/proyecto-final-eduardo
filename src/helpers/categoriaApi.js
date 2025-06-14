@@ -1,4 +1,4 @@
-const url = "localhost:3000/api/productos";
+const url = "localhost:3000/api/categorias";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 6;
 //Obtener categorias

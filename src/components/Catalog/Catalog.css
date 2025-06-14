@@ -1,0 +1,26 @@
+:root {
+    --primary-color: #fd671a;
+    --second-color:#cf4a07;
+  }
+  .nuevo{
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    
+  }
+  span{
+    margin: 4px;
+}
+
+  .nuevo:hover{
+    background-color: var(--second-color);
+    border-color: var(--second-color);
+   
+
+  }
+
+  .busca{
+    width: 50%;
+    justify-content: center;
+    
+  }

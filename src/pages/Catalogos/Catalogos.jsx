@@ -1,11 +1,12 @@
 import React from 'react'
-import { HeaderHome } from '../../components'
+import { Catalog} from '../../components'
 
 function Shop() {
   return (
     <div className='vh-100'>
       Shop
-      <HeaderHome></HeaderHome>
+      <Catalog/>
+      
     </div>
   )
 }

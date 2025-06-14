@@ -6,5 +6,5 @@ export { default as Loved } from './Loved/Loved';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 export { default as Questions } from './Questions/Questions';
 export { default as Results } from './Results/Results';
-export { default as Shop } from './Shop/Shop';
+export { default as Catalogos } from './Catalogos/Catalogos';
 export { default as Blog } from './Blog/Blog';

@@ -1,8 +1,8 @@
-const url = "localhost:3000";
+const url = "https://proyecto-final-eduardo-backend.onrender.com";
 
 export const crearUsuario = async (datos) => {
     try {
-        const resp = await fetch(url + "api/usuarios", {
+        const resp = await fetch(url + "/api/usuarios", {
             method: "POST",
             body: JSON.stringify(datos),
             headers: {
