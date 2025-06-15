@@ -15,7 +15,7 @@ import Login from "../Login/Login1";
 
 const Register = ({ isOpen, closeModal }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
- 
+  
 
   /*Estructura de React Hook*/
   const {
@@ -28,8 +28,7 @@ const Register = ({ isOpen, closeModal }) => {
     /*Envio de info a la Base por medio de la API, se hace asincrona por el tiempo que puede demorar el proceso*/
   }
   const envioRegistro = async (data) => {
-    /* Se ejecuta en AXIOS
-         que es el que ayuda a interactuar con apis y se la importacion de authLogin que es el archivo de nuestro login y los datos */
+    /* Se ejecuta y se le pasa como valor los datos del form */
     const datos = crearUsuario(data)
       .then((datos) => {
         const error = datos.errors;

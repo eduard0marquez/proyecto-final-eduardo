@@ -1,4 +1,4 @@
-const url = "localhost:3000/api/auth/login";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/auth/login";
 
 export const authLogin = async (datos) => {
     try {

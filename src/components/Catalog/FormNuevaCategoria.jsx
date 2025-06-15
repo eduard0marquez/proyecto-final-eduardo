@@ -22,16 +22,16 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
   {
     /*Envio de info a la Base por medio de la API, se hace asincrona por el tiempo que puede demorar el proceso*/
   }
-  const envioRegistro = async (data) => {
+  const envioCategoria = async (data) => {
     /* Se ejecuta en AXIOS
            que es el que ayuda a interactuar con apis y se la importacion de authLogin que es el archivo de nuestro login y los datos */
     const datos = crearCategoria(data)
-      .then((datos) => {
-        const error = datos.errors;
-        if (datos.mensaje != "Usuario cargado correctamente") {
+        .then((datos) => {
+            const { nombre} = data;          
+        if (datos.msg === `La categoria ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
-            title: `¡Oops! ${error[0].msg}`,
+            title: `¡Oops! ${datos.msg}`,
             text: " favor de verificar.",
             toast: true,
             position: "top-end",
@@ -42,7 +42,7 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
         } else {
           Swal.fire({
             icon: "success",
-            title: `¡ ${datos.mensaje}!`,
+            title: `¡ ${datos.msg}!`,
             toast: true,
             position: "top-end",
             showConfirmButton: false,
@@ -50,6 +50,7 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
             timerProgressBar: true,
           });
           reset();
+          closeModal(true);
         }
       })
       .catch((error) => {
@@ -80,7 +81,7 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(envioRegistro)}>
+        <Form onSubmit={handleSubmit(envioCategoria)}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
@@ -92,9 +93,9 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
           <Form.Label>Descripción</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Apellido"
+            placeholder="Descripción de la categoria"
             type="text"
-            id="apellido"
+            id="descripcion"
             {...register("descripcion")}
           />
 

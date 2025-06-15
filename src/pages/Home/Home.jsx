@@ -1,10 +1,11 @@
 import React from "react";
-import { HeaderHome } from "../../components";
+import { HeaderHome, Shop } from "../../components";
 
 function Home() {
   return (
     <div className="home-page ">
       <HeaderHome />
+      <Shop></Shop>
     </div>
   );
 }

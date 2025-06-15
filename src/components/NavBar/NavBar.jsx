@@ -31,6 +31,7 @@ function NavBar() {
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no)
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
+
   return (
     <Container>
       <Navbar expand="lg" className="fixed-top bg-body-tertiary shadow ">

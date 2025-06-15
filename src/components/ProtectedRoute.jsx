@@ -1,12 +1,9 @@
-import React from 'react'
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Spinner, Container } from "react-bootstrap";
 
-
-function ProtectedRoute({children}) {
-  return (
-    <div>
-      
-    </div>
-  )
+function ProtectedRoute({ children }) {
+  return children;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

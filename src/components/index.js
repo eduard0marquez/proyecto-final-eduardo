@@ -1,3 +1,5 @@
+import ProtectedRoute from './ProtectedRoute';
+
 export { default as NavBar } from './NavBar/NavBar';
 export { default as Footer } from './Footer/Footer';
 export { default as HeaderHome } from './HeaderHome/HeaderHome';
@@ -9,3 +11,5 @@ export { default as Register } from './Login/Register';
 export { default as Catalog } from './Catalog/Catalog';
 export { default as FormNuevaCategoria } from './Catalog/FormNuevaCategoria';
 export { default as FormNuevoArticulo } from './Catalog/FormNuevoArticulo';
+export { default as ProtectedRoute } from './ProtectedRoute';
+export { default as Shop } from './Shop/Shop';

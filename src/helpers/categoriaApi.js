@@ -1,4 +1,4 @@
-const url = "localhost:3000/api/categorias";
+const url = "http://localhost:3000/api/categorias/";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 6;
 //Obtener categorias
@@ -45,10 +45,12 @@ export const crearCategoria = async (datos) => {
                 "x-token": token,
             },
         });
-        const sata = await resp.json();
+        const data = await resp.json();
 
         return data;
     } catch (error) {
+        console.log(error)
+        console.log(error)
         return { msg: "No se conecto con el Backend" };
     }
 }

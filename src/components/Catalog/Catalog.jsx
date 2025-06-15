@@ -53,7 +53,7 @@ function Catalog() {
             </Tab>
             {/**********************************************TAB CATALOGO DE ARTICULOS *************************************************************/}
             <Tab eventKey="articulos" title="Articulos" className="text-center">
-              <h3 className="mt-5">Catalogo de los articulos</h3>
+              <h3 className="mt-5">Catalogo de los Articulos</h3>
               <Button className="nuevo mb-5">
                 <FaPlus size={20} />
                 <span>Nuevo Articulo</span>
