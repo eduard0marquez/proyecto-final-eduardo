@@ -10,6 +10,7 @@ import { styled } from "@mui/material";
 
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { TbCurrencyYen } from "react-icons/tb";
 
 const Login = ({ isOpen, closeModal }) => {
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no el Registro)
@@ -26,12 +27,6 @@ const Login = ({ isOpen, closeModal }) => {
     /* Se ejecuta y se le pasa como valor los datos del form */
     const datos = authLogin(data)
       .then((datos) => {
-        const { token, email, password } = data;
-        localStorage.setItem("email", email);
-        localStorage.setItem("rol", datos.usuario.rol);
-        localStorage.setItem("token", JSON.stringify(datos.token));
-        console.log(datos.usuario);
-        console.log(datos.token);
         if (datos.msg != "Login Ok") {
           Swal.fire({
             icon: "error",
@@ -53,6 +48,11 @@ const Login = ({ isOpen, closeModal }) => {
             timer: 3000,
             timerProgressBar: true,
           });
+          const { token, email, password } = data;
+          localStorage.setItem("login", "ok");
+          localStorage.setItem("email", email);
+          localStorage.setItem("rol", datos.usuario.rol);
+          localStorage.setItem("token", JSON.stringify(datos.token));
           reset();
           closeModal(true);
         }

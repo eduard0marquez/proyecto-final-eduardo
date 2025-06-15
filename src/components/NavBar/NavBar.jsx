@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Container,
   Nav,
@@ -26,11 +26,31 @@ import {
 } from "react-icons/fa";
 import Login from "../Login/Login1";
 import Register from "../Login/Register";
+import context from "react-bootstrap/esm/AccordionContext";
+import { UserContext } from "../Contextt/user.context";
+import Swal from "sweetalert2";
 
 function NavBar() {
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no)
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
+
+  const Logout = () => {
+    localStorage.removeItem("login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("rol");
+    Swal.fire({
+      icon: "success",
+      title: `¡ ${`La sesión se cerro correctamente`}!`,
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    
+  };
 
   return (
     <Container>
@@ -101,10 +121,14 @@ function NavBar() {
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
                   <FaSignOutAlt color="#fd671a" size={15} />
-                  <span className=" submenubtn">Cerrar Sesion</span>
+                  <span className=" submenubtn" onClick={Logout}>
+                    Cerrar Sesion
+                  </span>
                 </Dropdown.Item>
                 <Dropdown.Divider />
+
                 <Dropdown.Item href="/catalog">Catalogos</Dropdown.Item>
+
                 <Dropdown.Item href="#link4">Pedidos</Dropdown.Item>
                 <Dropdown.Item href="#link4">Reportes</Dropdown.Item>
               </NavDropdown>

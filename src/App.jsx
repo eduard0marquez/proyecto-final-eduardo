@@ -13,10 +13,12 @@ import {
 } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import { Footer, NavBar, ProtectedRoute } from "./components";
+import { UserProvider } from "./components/Contextt/user.context";
 
 function App() {
   return (
     <>
+      
       <NavBar />
 
       {/*Publicas */}
@@ -50,7 +52,8 @@ function App() {
         />
       </Routes>
 
-      <Footer />
+        <Footer />
+       
     </>
   );
 }
