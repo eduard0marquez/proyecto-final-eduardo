@@ -1,4 +1,4 @@
-const url = "localhost:3000/api/usuarios";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/usuarios";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 6;
 

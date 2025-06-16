@@ -12,10 +12,8 @@ import { crearUsuario } from "../../helpers/fetchApi";
 import Swal from "sweetalert2";
 import Login from "../Login/Login1";
 
-
 const Register = ({ isOpen, closeModal }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  
 
   /*Estructura de React Hook*/
   const {
@@ -43,8 +41,7 @@ const Register = ({ isOpen, closeModal }) => {
             timer: 3000,
             timerProgressBar: true,
           });
-        }
-        else {
+        } else {
           Swal.fire({
             icon: "success",
             title: `¡ ${datos.mensaje}!`,
@@ -55,8 +52,8 @@ const Register = ({ isOpen, closeModal }) => {
             timerProgressBar: true,
           });
           reset();
+          closeModal(true);
         }
-         
       })
       .catch((error) => {
         console.error("Error al obtener los datos:", error); // Manejar el error
@@ -147,7 +144,7 @@ const Register = ({ isOpen, closeModal }) => {
             Registrarse
           </Button>
 
-          <a  className="regis" onClick={() => setIsLoginOpen(true)}>
+          <a className="regis" onClick={() => setIsLoginOpen(true)}>
             <strong>Iniciar Sesión</strong>
           </a>
           <br />

@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/api/categorias";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/categorias";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 6;
 //Obtener categorias
