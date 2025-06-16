@@ -1,10 +1,10 @@
-const url = "http://localhost:3000/api/categorias/";
+const url = "http://localhost:3000/api/categorias";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 6;
 //Obtener categorias
 export const getCategorias = async (desde = 0) => {
     try {
-        const resp = await fetch(url + "?limite=" + limite + "&desde=" + desde, {
+        const resp = await fetch(url , {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",

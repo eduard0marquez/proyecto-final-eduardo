@@ -11,7 +11,7 @@ import {
   DropdownMenu,
   NavDropdown,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../public/assets/logo.png";
 import "./NavBar.css";
 import {
@@ -35,11 +35,15 @@ function NavBar() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
 
+  //se declara navigate para que redirija en caso de cerrar sesion
+  const navigate = useNavigate();
+
   const Logout = () => {
     localStorage.removeItem("login");
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("rol");
+    navigate("/");
     Swal.fire({
       icon: "success",
       title: `¡ ${`La sesión se cerro correctamente`}!`,
@@ -49,7 +53,6 @@ function NavBar() {
       timer: 3000,
       timerProgressBar: true,
     });
-    
   };
 
   return (
@@ -119,11 +122,9 @@ function NavBar() {
                   <FaCog color="#fd671a" size={15} />
                   <span className="submenubtn">Mi perfil</span>
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
+                <Dropdown.Item onClick={Logout}>
                   <FaSignOutAlt color="#fd671a" size={15} />
-                  <span className=" submenubtn" onClick={Logout}>
-                    Cerrar Sesion
-                  </span>
+                  <span className=" submenubtn">Cerrar Sesion</span>
                 </Dropdown.Item>
                 <Dropdown.Divider />
 

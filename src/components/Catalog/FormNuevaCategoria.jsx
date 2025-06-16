@@ -7,7 +7,6 @@ import { BsDisplay } from "react-icons/bs";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import axios from "axios";
 import { crearCategoria } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 
@@ -19,15 +18,12 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
     formState: { error },
     reset,
   } = useForm();
-  {
-    /*Envio de info a la Base por medio de la API, se hace asincrona por el tiempo que puede demorar el proceso*/
-  }
+ 
   const envioCategoria = async (data) => {
-    /* Se ejecuta en AXIOS
-           que es el que ayuda a interactuar con apis y se la importacion de authLogin que es el archivo de nuestro login y los datos */
+    /* Se mandan los datos al metodo crear categoria  */
     const datos = crearCategoria(data)
-        .then((datos) => {
-            const { nombre} = data;          
+      .then((datos) => {
+        const { nombre } = data;
         if (datos.msg === `La categoria ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",

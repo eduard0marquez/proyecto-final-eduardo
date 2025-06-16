@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Spinner, Container } from "react-bootstrap";
+const token = JSON.parse(localStorage.getItem("token")) || null;
 
-function ProtectedRoute({ children }) {
-  const [hasAccess, setAccess] = useState(true);
-
-  if (!hasAccess) return <Navigate to="/NotFoundPage" />;
-  return children;
-}
+const ProtectedRoute = ({ children }) => {
+  if (token === null) {
+    return <Navigate to="/NotFoundPage" />;
+  } else {
+    return children;
+  }
+};
 export default ProtectedRoute;

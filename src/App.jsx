@@ -14,11 +14,11 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { Footer, NavBar, ProtectedRoute } from "./components";
 import { UserProvider } from "./components/Contextt/user.context";
+import RoutesApp from "./Routes/RoutesApp";
 
 function App() {
   return (
     <>
-      
       <NavBar />
 
       {/*Publicas */}
@@ -34,6 +34,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
 
         {/*Privadas */}
+        
         <Route
           path="/catalog"
           element={
@@ -42,18 +43,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
+
       </Routes>
 
-        <Footer />
-       
+      <Footer />
     </>
   );
 }

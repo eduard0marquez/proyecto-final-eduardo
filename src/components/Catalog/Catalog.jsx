@@ -4,11 +4,12 @@ import Accordion from "react-bootstrap/Accordion";
 import { FaPlus } from "react-icons/fa";
 import "./Catalog.css";
 import FormNuevaCategoria from "./FormNuevaCategoria";
-
+import FormNuevoArticulo from "./FormNuevoArticulo";
 
 
 function Catalog() {
-    const [isNewCategoriOpen, setIsNewCategoriOpen] = useState(false);
+  const [isNewCategoriOpen, setIsNewCategoriOpen] = useState(false);
+  const [isNewArticuloOpen, setIsNewArticuloiOpen] = useState(false);
   const [key, setKey] = useState("home");
   return (
     <div>
@@ -54,7 +55,7 @@ function Catalog() {
             {/**********************************************TAB CATALOGO DE ARTICULOS *************************************************************/}
             <Tab eventKey="articulos" title="Articulos" className="text-center">
               <h3 className="mt-5">Catalogo de los Articulos</h3>
-              <Button className="nuevo mb-5">
+              <Button className="nuevo mb-5" onClick={() => setIsNewArticuloiOpen(true)}>
                 <FaPlus size={20} />
                 <span>Nuevo Articulo</span>
               </Button>
@@ -73,6 +74,8 @@ function Catalog() {
           isOpen={isNewCategoriOpen}
           closeModal={() => setIsNewCategoriOpen(false)}
         />
+        <FormNuevoArticulo isOpen={isNewArticuloOpen}
+          closeModal={() => setIsNewArticuloiOpen(false)} />
       </Container>
     </div>
   );
