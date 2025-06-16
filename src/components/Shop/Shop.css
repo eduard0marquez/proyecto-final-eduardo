@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Passion+One:wght@400;700;900&family=Paytone+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rock+Salt&display=swap');
+
+.product-image{
+    border-radius: .5rem;
+    border: none;   
+}
+.cards{
+    justify-content: center;
+    align-content: center;
+    
+    
+}
+.card{
+margin-right:3vh;
+align-items: center;
+justify-content: center;
+align-content: center;
+border-radius: .5rem;
+margin-bottom: 1em;
+}
+
+.Card.Body{
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.title{
+    font-size: 1.5em;
+    font-family: "Roboto", sans-serif;
+}
+.descripcion{
+    font-size: .8em;
+    font-family: "Roboto", sans-serif;
+}
+.precio{
+    font-size: 1.5em;
+    font-family: "Roboto", sans-serif;
+    
+}
+
+

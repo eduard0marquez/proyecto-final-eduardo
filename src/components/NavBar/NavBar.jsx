@@ -39,7 +39,6 @@ function NavBar() {
   const sesion = Logueado();
   //Se obtiene el valor del Rol
   const rolLogueado = Rol();
-  console.log(`Rol= ${rolLogueado}`);
 
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no)
   const [isLoginOpen, setIsLoginOpen] = useState(false);
