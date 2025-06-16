@@ -11,8 +11,11 @@ import { styled } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { TbCurrencyYen } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
+import { NavBar } from "../index";
 const Login = ({ isOpen, closeModal }) => {
+  const navigate = useNavigate();
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no el Registro)
   const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
 
@@ -47,14 +50,15 @@ const Login = ({ isOpen, closeModal }) => {
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-          });
+          })
           const { token, email, password } = data;
           localStorage.setItem("login", "ok");
           localStorage.setItem("email", email);
-          localStorage.setItem("rol", datos.usuario.rol);
+          localStorage.setItem("rol", JSON.stringify(datos.usuario.rol));
           localStorage.setItem("token", JSON.stringify(datos.token));
           reset();
           closeModal(true);
+          location.reload();
         }
       })
       .catch((error) => {

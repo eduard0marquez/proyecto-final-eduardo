@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Spinner, Container } from "react-bootstrap";
-const token = JSON.parse(localStorage.getItem("token")) || null;
+import { Logueado } from "../helpers/controlLogin";
 
 const ProtectedRoute = ({ children }) => {
-  if (token === null) {
+  const sesion = Logueado();
+  if (sesion === null) {
     return <Navigate to="/NotFoundPage" />;
   } else {
     return children;

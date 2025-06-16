@@ -29,8 +29,18 @@ import Register from "../Login/Register";
 import context from "react-bootstrap/esm/AccordionContext";
 import { UserContext } from "../Contextt/user.context";
 import Swal from "sweetalert2";
-
+import { Logueado } from "../../helpers/controlLogin";
+import { Rol } from "../../helpers/controlRol";
+function recargarNav() {
+  location.reload();
+}
 function NavBar() {
+  //Se obtiene el valor de logueado
+  const sesion = Logueado();
+  //Se obtiene el valor del Rol
+  const rolLogueado = Rol();
+  console.log(`Rol= ${rolLogueado}`);
+
   //Se daclaran estados para poder asignar si esta abierto o cerrado (visible o no)
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegistrerOpen, setIsRegistrerOpen] = useState(false);
@@ -43,7 +53,9 @@ function NavBar() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("rol");
+
     navigate("/");
+
     Swal.fire({
       icon: "success",
       title: `¡ ${`La sesión se cerro correctamente`}!`,
@@ -53,6 +65,7 @@ function NavBar() {
       timer: 3000,
       timerProgressBar: true,
     });
+    recargarNav();
   };
 
   return (
@@ -110,28 +123,41 @@ function NavBar() {
                 id="basic-nav-dropdown"
                 className="btnn"
               >
-                <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
-                  <FaSignInAlt color="#fd671a" size={15} />
-                  <span className=" submenubtn">Iniciar Sesion</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => setIsRegistrerOpen(true)}>
-                  <FaUserPlus color="#fd671a" size={15} />
-                  <span className="submenubtn">Registrarse</span>
-                </Dropdown.Item>
-                <Dropdown.Item href="#link3">
-                  <FaCog color="#fd671a" size={15} />
-                  <span className="submenubtn">Mi perfil</span>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={Logout}>
-                  <FaSignOutAlt color="#fd671a" size={15} />
-                  <span className=" submenubtn">Cerrar Sesion</span>
-                </Dropdown.Item>
-                <Dropdown.Divider />
+                {sesion ? null : (
+                  <Dropdown.Item onClick={() => setIsLoginOpen(true)}>
+                    <FaSignInAlt color="#fd671a" size={15} />
+                    <span className=" submenubtn">Iniciar Sesion</span>
+                  </Dropdown.Item>
+                )}
 
-                <Dropdown.Item href="/catalog">Catalogos</Dropdown.Item>
+                {sesion ? null : (
+                  <Dropdown.Item onClick={() => setIsRegistrerOpen(true)}>
+                    <FaUserPlus color="#fd671a" size={15} />
+                    <span className="submenubtn">Registrarse</span>
+                  </Dropdown.Item>
+                )}
+                {sesion && (
+                  <Dropdown.Item href="#link3">
+                    <FaCog color="#fd671a" size={15} />
+                    <span className="submenubtn">Mi perfil</span>
+                  </Dropdown.Item>
+                )}
 
-                <Dropdown.Item href="#link4">Pedidos</Dropdown.Item>
-                <Dropdown.Item href="#link4">Reportes</Dropdown.Item>
+                {sesion && (
+                  <Dropdown.Item onClick={Logout}>
+                    <FaSignOutAlt color="#fd671a" size={15} />
+                    <span className=" submenubtn">Cerrar Sesion</span>
+                  </Dropdown.Item>
+                )}
+                {sesion && <Dropdown.Divider />}
+
+                {rolLogueado && (
+                  <Dropdown.Item href="/catalog">Catalogos</Dropdown.Item>
+                )}
+                {sesion && <Dropdown.Item href="#link4">Pedidos</Dropdown.Item>}
+                {rolLogueado && (
+                  <Dropdown.Item href="#link4">Reportes</Dropdown.Item>
+                )}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
