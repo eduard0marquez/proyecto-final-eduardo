@@ -3,7 +3,7 @@ import React from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import logo from "../../../public/assets/logo.png";
 import { BsDisplay } from "react-icons/bs";
-import "./LoginRegistrer.css";
+
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -12,7 +12,7 @@ import { crearUsuario } from "../../helpers/fetchApi";
 import Swal from "sweetalert2";
 import Login from "../Login/Login1";
 
-const Register = ({ isOpen, closeModal }) => {
+const FormEditUser = ({ isOpen, closeModal }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   /*Estructura de React Hook*/
@@ -79,7 +79,7 @@ const Register = ({ isOpen, closeModal }) => {
       <Modal.Header className="modal-style">
         <Modal.Title>
           <img className="logo" src={logo} alt="Logo" />
-          <p>Nuevo Registro</p>
+          <p>Editar Usuario</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -141,12 +141,9 @@ const Register = ({ isOpen, closeModal }) => {
           />
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
-            Registrarse
+            Guardar Cambios
           </Button>
 
-          <a className="regis" onClick={() => setIsLoginOpen(true)}>
-            <strong>Iniciar Sesión</strong>
-          </a>
           <br />
         </Form>
       </Modal.Body>
@@ -160,4 +157,4 @@ const Register = ({ isOpen, closeModal }) => {
   );
 };
 
-export default Register;
+export default FormEditUser;

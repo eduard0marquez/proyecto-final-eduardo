@@ -44,6 +44,8 @@ color: black;
 
 /* Estilo detras de la imagen */
 .flip-card-back {
+  
+  align-content: center;
 
 backdrop-filter: blur(10px);
 
@@ -55,6 +57,7 @@ display: flex;
 
 .foto{
   width: 13rem;
+  margin-bottom: 10px;
   
 }
 

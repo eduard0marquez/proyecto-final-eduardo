@@ -1,39 +1,46 @@
+import "../Login/LoginRegistrer.css";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import logo from "../../../public/assets/logo.png";
 import { BsDisplay } from "react-icons/bs";
-import "./LoginRegistrer.css";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import axios from "axios";
-import { crearUsuario } from "../../helpers/fetchApi";
+import { crearProducto } from "../../helpers/productosApi";
+import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
-import Login from "../Login/Login1";
 
-const Register = ({ isOpen, closeModal }) => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+const FormEditArticulo = ({ isOpen, closeModal }) => {
+  const [categorias, setCategorias] = useState([]);
+  useEffect(() => {
+    getCategorias().then((data) => {
+      setCategorias(data.categorias);
+    });
+  }, []);
 
-  /*Estructura de React Hook*/
+  const obtenerCategorias = getCategorias().then((obtenerCategorias) => {
+    const { id } = obtenerCategorias;
+    console.log();
+  });
+  console.log();
+
   const {
     register,
     handleSubmit,
     formState: { error },
     reset,
   } = useForm();
-  {
-    /*Envio de info a la Base por medio de la API, se hace asincrona por el tiempo que puede demorar el proceso*/
-  }
-  const envioRegistro = async (data) => {
-    /* Se ejecuta y se le pasa como valor los datos del form */
-    const datos = crearUsuario(data)
+
+  const envioProducto = async (data) => {
+    /* Se mandan los datos al metodo crear categoria  */
+    const datos = crearProducto(data)
       .then((datos) => {
-        const error = datos.errors;
-        if (datos.mensaje != "Usuario cargado correctamente") {
+        const { nombre } = data;
+        if (datos.msg === `El artículo ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
-            title: `¡Oops! ${error[0].msg}`,
+            title: `¡Oops! ${datos.msg}`,
             text: " favor de verificar.",
             toast: true,
             position: "top-end",
@@ -44,7 +51,7 @@ const Register = ({ isOpen, closeModal }) => {
         } else {
           Swal.fire({
             icon: "success",
-            title: `¡ ${datos.mensaje}!`,
+            title: `¡ ${datos.msg}!`,
             toast: true,
             position: "top-end",
             showConfirmButton: false,
@@ -60,16 +67,16 @@ const Register = ({ isOpen, closeModal }) => {
       });
     {
       /** .then(response => {
-        console.log(response.json());
-      if (datos.mensaje==console.log(datos);) {
-        
-        }
-      else {
-        
-        }
-        
-       
-    })*/
+              console.log(response.json());
+            if (datos.mensaje==console.log(datos);) {
+              
+              }
+            else {
+              
+              }
+              
+             
+          })*/
     }
   };
   if (!isOpen) return null;
@@ -79,11 +86,11 @@ const Register = ({ isOpen, closeModal }) => {
       <Modal.Header className="modal-style">
         <Modal.Title>
           <img className="logo" src={logo} alt="Logo" />
-          <p>Nuevo Registro</p>
+          <p>Editar Artículo</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(envioRegistro)}>
+        <Form onSubmit={handleSubmit(envioProducto)}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
@@ -91,62 +98,63 @@ const Register = ({ isOpen, closeModal }) => {
             type="text"
             {...register("nombre")}
           />
-
-          <Form.Label>Apellido</Form.Label>
+          <Form.Label>Precio</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Apellido"
+            placeholder="Ingresa el precio"
+            type="number"
+            {...register("precio")}
+          />
+
+          <Form.Label>Descripción</Form.Label>
+          <Form.Control
+            required
+            placeholder="Descripción del artículo"
             type="text"
-            id="apellido"
-            {...register("apellido")}
+            id="descripcion"
+            {...register("descripcion")}
           />
 
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Fabricante</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Email"
-            type="email"
-            {...register("email")}
-          />
-
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            required
-            placeholder="Ingresa tu Contraseña (Al menos 8 catacteres) "
-            type="password"
-            id="password"
-            minLength={8}
-            {...register("password")}
-          />
-
-          <Form.Label>Direccíon</Form.Label>
-          <Form.Control
-            placeholder="Direccíon con CP"
+            placeholder="Ingresa el fanricante"
             type="text"
-            {...register("direccion")}
-          />
-
-          <Form.Label>Fecha de Nacimiento</Form.Label>
-          <Form.Control
-            placeholder="Ingresa tu Fecha de Nacimiento"
-            type="date"
-            {...register("fechaNacimiento")}
+            {...register("fabricante")}
           />
 
           <Form.Label>Imagen</Form.Label>
           <Form.Control
-            placeholder="Ingresa el Link de tu imagen"
+            required
+            placeholder="Ingresa el link de tu imagen"
             type="text"
             {...register("img")}
           />
 
+          <Form.Label>Stock</Form.Label>
+          <Form.Control
+            required
+            placeholder="Pzas en exitencia"
+            type="number"
+            {...register("stock")}
+          />
+          <Form.Label>Categoria</Form.Label>
+          <Form.Select
+            required
+            placeholder="Pzas en exitencia"
+            type="select"
+            {...register("categoria")}
+          >
+            <option>Selecciona una opcion</option>
+            {categorias.map((categor) => (
+              <option>{categor.nombre}</option>
+            ))}
+          </Form.Select>
+
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
-            Registrarse
+            Guardar Cambios
           </Button>
 
-          <a className="regis" onClick={() => setIsLoginOpen(true)}>
-            <strong>Iniciar Sesión</strong>
-          </a>
           <br />
         </Form>
       </Modal.Body>
@@ -154,10 +162,9 @@ const Register = ({ isOpen, closeModal }) => {
         <Button className="buscar" variant="secondary" onClick={closeModal}>
           Cerrar
         </Button>
-        <Login isOpen={isLoginOpen} closeModal={() => setIsLoginOpen(false)} />
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default Register;
+export default FormEditArticulo;

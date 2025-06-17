@@ -37,11 +37,13 @@ function About() {
                   src="https://scontent.fmex10-2.fna.fbcdn.net/v/t39.30808-6/480519534_9392905714150847_8499012358417627994_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHXVCjD3fA0aSJrpIGRBLtnJb1ouquoMJQlvWi6q6gwlOCBzXVH0vd8LzQukrOz_0C_X1T_zNPovfuWrG-rPz_b&_nc_ohc=nuY5U65seBgQ7kNvwEpiWpy&_nc_oc=AdkWntoI7hIK1RybrCuwAiiJ8PdZ6DTuV-08lRQsigAsyw30BPmM2iMh0zLADYmUJSzlo9stB7g0dq9a2ExJn93O&_nc_zt=23&_nc_ht=scontent.fmex10-2.fna&_nc_gid=YdEIs_RbndrPI7xwk_u7eQ&oh=00_AfNenBMUCY5AVtv7uddWhOF9WOHyri9TZvkrJ6agZWE4Ew&oe=68574DB6"
                   roundedCircle
                 />
+                
+                
                 <h4>Eduardo Marquez</h4>
               </div>
               <div className="flip-card-back">
                 <h1>Eduardo Marquez</h1>
-                <p>Ocupacion: Desarrollador</p>
+                <p>Ocupación: Desarrollador</p>
                 <p>Edad: 29 años</p>
               </div>
             </div>

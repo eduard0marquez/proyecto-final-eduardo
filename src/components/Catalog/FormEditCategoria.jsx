@@ -6,13 +6,12 @@ import logo from "../../../public/assets/logo.png";
 import { BsDisplay } from "react-icons/bs";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { actualizarCategoria } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 
-const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
-  
+const FormEditCategoria = ({ isOpen, closeModal, categoria }) => {
   /*Estructura de React Hook*/
+
   const {
     register,
     handleSubmit,
@@ -22,10 +21,10 @@ const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
 
   const envioCategoria = async (data) => {
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = actualizarCategoria(id, data)
+    const datos = actualizarCategoria(categoria._id, data)
       .then((datos) => {
         const { nombre } = data;
-        console.log(id,datos)
+        console.log(id, datos);
         if (datos.msg === `La categoria ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -82,7 +81,6 @@ const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
         <Form onSubmit={handleSubmit(envioCategoria)}>
           <Form.Label>Nombre (Opcional)</Form.Label>
           <Form.Control
-            
             placeholder="Nuevo Nombre de la Categoria"
             type="text"
             {...register("nombre")}
@@ -90,7 +88,6 @@ const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
 
           <Form.Label>Descripción (Opcional)</Form.Label>
           <Form.Control
-            
             placeholder=" Nueva Descripción de la categoria"
             type="text"
             id="descripcion"
@@ -98,7 +95,7 @@ const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
           />
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
-            Crear
+            Guardar Cambios
           </Button>
 
           <br />
@@ -113,4 +110,4 @@ const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
   );
 };
 
-export default FormNuevaCategoria;
+export default FormEditCategoria;
