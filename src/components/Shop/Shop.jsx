@@ -5,19 +5,15 @@ import "./Shop.css";
 import { getProductos } from "../../helpers/productosApi";
 import { useEffect, useState } from "react";
 
-function Shop () {
+function Shop() {
   const [articulos, setArticulos] = useState([]);
   useEffect(() => {
-    getProductos()
-      .then((data) => {
-      setArticulos(data.productos)
-    console.log("valor", data.productos);
-    })
-    
-      
+    getProductos().then((data) => {
+      setArticulos(data.productos);
+      console.log("valor", data.productos);
+    });
   }, []);
 
- 
   return (
     <>
       <div className="container">
@@ -29,7 +25,7 @@ function Shop () {
                 <Card.Title className="title "> {artic.nombre}</Card.Title>
                 <Card.Text className="descripcion">
                   <span>
-                 <strong>{artic.categoria.nombre}</strong>{" "}
+                    <strong>{artic.categoria.nombre}</strong>{" "}
                   </span>
                   <br />
                   {artic.descripcion}

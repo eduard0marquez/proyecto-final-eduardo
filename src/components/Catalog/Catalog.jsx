@@ -1,15 +1,26 @@
-import { useState } from "react";
-import { Container, Tab, Tabs, Button, Form } from "react-bootstrap";
+import { useState,useEffect } from "react";
+import { Container, Tab, Tabs, Button, Form,Table } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import "./Catalog.css";
 import FormNuevaCategoria from "./FormNuevaCategoria";
+import FormEditCategoria from "./FormEditCategoria";
 import FormNuevoArticulo from "./FormNuevoArticulo";
+import { getCategorias } from "../../helpers/categoriaApi";
 
 
 function Catalog() {
   const [isNewCategoriOpen, setIsNewCategoriOpen] = useState(false);
+  const [isEditCategoriOpen, setIsEditCategoriOpen] = useState(false);
   const [isNewArticuloOpen, setIsNewArticuloiOpen] = useState(false);
+  const [categorias, setCategorias] = useState([]);
+  useEffect(() => {
+      getCategorias().then((data) => {
+        setCategorias(data.categorias);
+      });
+  }, []);
+  
   const [key, setKey] = useState("home");
   return (
     <div>
@@ -42,20 +53,48 @@ function Catalog() {
                 <span>Nueva Categoria</span>
               </Button>
 
-              <Form className="d-flex  align-items-center">
-                <Form.Control
-                  type="search"
-                  placeholder="Buscar Cateogria..."
-                  className="busca"
-                  aria-label="Search"
-                />
-                <Button className="buscar">Buscar </Button>
-              </Form>
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>Categoria</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {categorias.map((categor) => (
+                    <tr>
+                      <td>{categor.nombre}</td>
+                      <td>{categor.descripcion}</td>
+                      <td>{categor.estado}</td>
+                      <td>
+                        <a
+                          className="btn"
+                          title="Editar"
+                          onClick={() =>
+                            setIsEditCategoriOpen(true, categor._id)
+                          }
+                        >
+                          <FaEdit color="#fd671a" />
+                        </a>
+                        <a className="btn"
+                        title="Eliminar Registro">
+                          <MdDelete color="red"/>
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </Tab>
             {/**********************************************TAB CATALOGO DE ARTICULOS *************************************************************/}
             <Tab eventKey="articulos" title="Articulos" className="text-center">
               <h3 className="mt-5">Catalogo de los Articulos</h3>
-              <Button className="nuevo mb-5" onClick={() => setIsNewArticuloiOpen(true)}>
+              <Button
+                className="nuevo mb-5"
+                onClick={() => setIsNewArticuloiOpen(true)}
+              >
                 <FaPlus size={20} />
                 <span>Nuevo Articulo</span>
               </Button>
@@ -70,12 +109,19 @@ function Catalog() {
             </Tab>
           </Tabs>
         </div>
+        <FormEditCategoria
+          isOpen={isEditCategoriOpen}
+          closeModal={() => setIsEditCategoriOpen(false)}
+        />
+
         <FormNuevaCategoria
           isOpen={isNewCategoriOpen}
           closeModal={() => setIsNewCategoriOpen(false)}
         />
-        <FormNuevoArticulo isOpen={isNewArticuloOpen}
-          closeModal={() => setIsNewArticuloiOpen(false)} />
+        <FormNuevoArticulo
+          isOpen={isNewArticuloOpen}
+          closeModal={() => setIsNewArticuloiOpen(false)}
+        />
       </Container>
     </div>
   );

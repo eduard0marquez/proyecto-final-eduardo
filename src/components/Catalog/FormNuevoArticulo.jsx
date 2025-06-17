@@ -12,11 +12,17 @@ import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 
 const FormNuevoArticulo = ({ isOpen, closeModal }) => {
-    const obtenerCategorias = getCategorias()
-    .then((obtenerCategorias) => {
-        const { id } = obtenerCategorias;
-        console.log();
-    })
+  const [categorias, setCategorias] = useState([]);
+  useEffect(() => {
+    getCategorias().then((data) => {
+      setCategorias(data.categorias);
+    });
+  }, []);
+
+  const obtenerCategorias = getCategorias().then((obtenerCategorias) => {
+    const { id } = obtenerCategorias;
+    console.log();
+  });
   console.log();
 
   const {
@@ -132,6 +138,18 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
             type="number"
             {...register("stock")}
           />
+          <Form.Label>Categoria</Form.Label>
+          <Form.Select
+            required
+            placeholder="Pzas en exitencia"
+            type="select"
+            {...register("categoria")}
+          >
+            <option>Selecciona una opcion</option>
+            {categorias.map((categor) => (
+              <option>{categor.nombre}</option>
+            ))}
+          </Form.Select>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
             Crear

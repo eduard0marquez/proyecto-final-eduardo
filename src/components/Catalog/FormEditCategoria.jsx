@@ -7,10 +7,11 @@ import { BsDisplay } from "react-icons/bs";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { crearCategoria } from "../../helpers/categoriaApi";
+import { actualizarCategoria } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 
-const FormNuevaCategoria = ({ isOpen, closeModal }) => {
+const FormNuevaCategoria = ({ isOpen, closeModal, id }) => {
+  
   /*Estructura de React Hook*/
   const {
     register,
@@ -21,9 +22,10 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
 
   const envioCategoria = async (data) => {
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = crearCategoria(data)
+    const datos = actualizarCategoria(id, data)
       .then((datos) => {
         const { nombre } = data;
+        console.log(id,datos)
         if (datos.msg === `La categoria ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -73,23 +75,23 @@ const FormNuevaCategoria = ({ isOpen, closeModal }) => {
       <Modal.Header className="modal-style">
         <Modal.Title>
           <img className="logo" src={logo} alt="Logo" />
-          <p>Nueva Categoria</p>
+          <p>Editar Categoria</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(envioCategoria)}>
-          <Form.Label>Nombre</Form.Label>
+          <Form.Label>Nombre (Opcional)</Form.Label>
           <Form.Control
-            required
-            placeholder="Nombre de la Categoria"
+            
+            placeholder="Nuevo Nombre de la Categoria"
             type="text"
             {...register("nombre")}
           />
 
-          <Form.Label>Descripción</Form.Label>
+          <Form.Label>Descripción (Opcional)</Form.Label>
           <Form.Control
-            required
-            placeholder="Descripción de la categoria"
+            
+            placeholder=" Nueva Descripción de la categoria"
             type="text"
             id="descripcion"
             {...register("descripcion")}
