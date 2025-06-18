@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/api/usuarios";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/usuarios";
 
 export const crearUsuario = async (datos) => {
     try {
