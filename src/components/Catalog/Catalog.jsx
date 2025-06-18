@@ -35,7 +35,6 @@ function Catalog() {
   //CATEGORIAS
   useEffect(() => {
     getCategorias().then((data) => {
-      console.log(data);
       setCategorias(data.categorias);
     });
   }, []);
@@ -283,7 +282,7 @@ function Catalog() {
                           className="btn"
                           title="Eliminar Registro"
                           onClick={() => {
-                            eliminarArtic("usuario", usuari.uid);
+                            eliminarArtic("usuario", usuari._id);
                           }}
                         >
                           <MdDelete color="red" />
