@@ -31,7 +31,7 @@ const Register = ({ isOpen, closeModal }) => {
       .then((datos) => {
         const error = datos.errors;
         if (datos.mensaje != "Usuario cargado correctamente") {
-          console.log(data)
+          console.log(data);
           Swal.fire({
             icon: "error",
             title: `¡Oops! ${error}`,
@@ -145,9 +145,6 @@ const Register = ({ isOpen, closeModal }) => {
             Registrarse
           </Button>
 
-          <a className="regis" onClick={() => setIsLoginOpen(true)}>
-            <strong>Iniciar Sesión</strong>
-          </a>
           <br />
         </Form>
       </Modal.Body>
