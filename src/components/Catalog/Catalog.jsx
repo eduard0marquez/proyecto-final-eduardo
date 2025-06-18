@@ -9,7 +9,7 @@ import FormEditCategoria from "./FormEditCategoria";
 import FormNuevoArticulo from "./FormNuevoArticulo";
 import FormEditArticulo from "./FormEditArticulo";
 import FormEditUser from "./FormEditUser";
-import { getCategorias, borrarCategoria } from "../../helpers/categoriaApi";
+import { borrarCategoria, getCategorias } from "../../helpers/categoriaApi";
 import { getProductos, borrarProducto } from "../../helpers/productosApi";
 import Register from "../Login/Register";
 import { getUsuarios, borrarUsuario } from "../../helpers/usuariosApi";
@@ -25,22 +25,23 @@ function Catalog() {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
   const [users, setUsuarios] = useState([]);
-  //CATEGORIAS
-  useEffect(() => {
-    getCategorias().then((data) => {
-      setCategorias(data.categorias);
-    });
-  }, []);
+
   //PRODUCTOS
   useEffect(() => {
     getProductos().then((data) => {
       setProductos(data.productos);
     });
   }, []);
+  //CATEGORIAS
+  useEffect(() => {
+    getCategorias().then((data) => {
+      console.log(data);
+      setCategorias(data.categorias);
+    });
+  }, []);
   //USUARIOS
   useEffect(() => {
     getUsuarios().then((data) => {
-      console.log(data.usuarios);
       setUsuarios(data.usuarios);
     });
   }, []);
