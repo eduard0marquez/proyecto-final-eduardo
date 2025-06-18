@@ -14,3 +14,5 @@ export { default as FormNuevoArticulo } from './Catalog/FormNuevoArticulo';
 export { default as ProtectedRoute } from './ProtectedRoute';
 export { default as Shop } from './Shop/Shop';
 export { default as RouterApp } from '../Routes/RoutesApp';
+export { default as LovedSection } from "./LovedSection/LovedSection";
+export { default as Search } from "./Search/Search";

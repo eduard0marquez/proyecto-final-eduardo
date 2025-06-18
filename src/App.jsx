@@ -9,7 +9,8 @@ import {
   Loved,
   NotFoundPage,
   Questions,
-  Results,
+ 
+  Search,
 } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import { Footer, NavBar, ProtectedRoute } from "./components";
@@ -29,12 +30,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/loved" element={<Loved />} />
         <Route path="/questions" element={<Questions />} />
-        <Route path="/results" element={<Results />} />
+       
+        <Route path="/search" element={<Search />} />
 
         <Route path="*" element={<NotFoundPage />} />
 
         {/*Privadas */}
-        
+
         <Route
           path="/catalog"
           element={
@@ -43,7 +45,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
 
       <Footer />

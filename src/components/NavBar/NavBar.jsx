@@ -31,10 +31,25 @@ import { UserContext } from "../Contextt/user.context";
 import Swal from "sweetalert2";
 import { Logueado } from "../../helpers/controlLogin";
 import { Rol } from "../../helpers/controlRol";
+import { useForm } from "react-hook-form";
 function recargarNav() {
   location.reload();
 }
 function NavBar() {
+  
+   /*Estructura de React Hook*/
+    const {
+      register,
+      handleSubmit,
+      formState: { error },
+      reset,
+  } = useForm();
+
+  const busqueda = async (data) => {
+    Search(value)
+    navigate('/seart');
+  }
+  
   //Se obtiene el valor de logueado
   const sesion = Logueado();
   //Se obtiene el valor del Rol
@@ -80,14 +95,21 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mh-1 justify-content-end w-100">
-              <Form className="d-flex  w-100 ">
+              <Form
+                className="d-flex  w-100 "
+                onSubmit={handleSubmit(busqueda)}
+              >
                 <Form.Control
                   type="search"
                   placeholder="Buscar por producto..."
                   className="me-1"
                   aria-label="Search"
+                  {...register("valor")}
+                  required
                 />
-                <Button className="buscar">Buscar </Button>
+                <Button type="submit" className="buscar">
+                  Buscar{" "}
+                </Button>
               </Form>
             </Nav>
 
