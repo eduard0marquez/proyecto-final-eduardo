@@ -1,8 +1,8 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com";
+const url = "http://localhost:3000/api/usuarios";
 
 export const crearUsuario = async (datos) => {
     try {
-        const resp = await fetch(url + "/api/usuarios", {
+        const resp = await fetch(url , {
             method: "POST",
             body: JSON.stringify(datos),
             headers: {
@@ -12,7 +12,6 @@ export const crearUsuario = async (datos) => {
         const data = await resp.json();
         return data;
     } catch (error) {
-        console.log(error);
         return { msg: "no se conecto con backend" };
     }
 };

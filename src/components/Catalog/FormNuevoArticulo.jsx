@@ -37,6 +37,7 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
     const datos = crearProducto(data)
       .then((datos) => {
         const { nombre } = data;
+        console.log(data.categoria)
         if (datos.msg === `El artículo ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -94,7 +95,7 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Nombre"
+            placeholder="Nombre del Articulo"
             type="text"
             {...register("nombre")}
           />
@@ -109,6 +110,7 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
           <Form.Label>Descripción</Form.Label>
           <Form.Control
             required
+            maxLength={72}
             placeholder="Descripción del artículo"
             type="text"
             id="descripcion"
@@ -139,15 +141,10 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
             {...register("stock")}
           />
           <Form.Label>Categoria</Form.Label>
-          <Form.Select
-            required
-            placeholder="Pzas en exitencia"
-            type="select"
-            {...register("categoria")}
-          >
+          <Form.Select required type="select" {...register("categoria")}>
             <option>Selecciona una opcion</option>
             {categorias.map((categor) => (
-              <option>{categor.nombre}</option>
+              <option value={categor._id}>{categor.nombre}</option>
             ))}
           </Form.Select>
 

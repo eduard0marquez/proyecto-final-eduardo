@@ -9,11 +9,11 @@ import FormEditCategoria from "./FormEditCategoria";
 import FormNuevoArticulo from "./FormNuevoArticulo";
 import FormEditArticulo from "./FormEditArticulo";
 import FormEditUser from "./FormEditUser";
-import { getCategorias } from "../../helpers/categoriaApi";
-import { getProductos } from "../../helpers/productosApi";
+import { getCategorias, borrarCategoria } from "../../helpers/categoriaApi";
+import { getProductos, borrarProducto } from "../../helpers/productosApi";
 import Register from "../Login/Register";
-import { getUsuarios } from "../../helpers/usuariosApi";
-
+import { getUsuarios, borrarUsuario } from "../../helpers/usuariosApi";
+import Swal from "sweetalert2";
 
 function Catalog() {
   const [isNewCategoriOpen, setIsNewCategoriOpen] = useState(false);
@@ -40,9 +40,63 @@ function Catalog() {
   //USUARIOS
   useEffect(() => {
     getUsuarios().then((data) => {
+      console.log(data.usuarios);
       setUsuarios(data.usuarios);
     });
   }, []);
+
+  //  **********************************************   ELIMINAR CATEGORIA **********************************************************
+  function eliminarArtic(tipo, value) {
+    Swal.fire({
+      title: `¿Segur@ que deseas borrar ?`,
+      showCancelButton: true,
+      confirmButtonText: "Si",
+    }).then((result) => {
+      /* En caso que confirme que si se quiere eliminar */
+      if (result.isConfirmed) {
+        if (tipo === "categoria") {
+          borrarCategoria(value)
+            .then((data) => {
+              Swal.fire("Categoria correctamente!", "", "success");
+              location.reload();
+            })
+            .catch((error) => {
+              Swal.fire(
+                "Los datos no se pudieron eliminar , contacte al administador!",
+                "",
+                "danger"
+              );
+            });
+        } else if (tipo === "articulo") {
+          borrarProducto(value)
+            .then((data) => {
+              Swal.fire("Articulo eliminado correctamente!", "", "success");
+              location.reload();
+            })
+            .catch((error) => {
+              Swal.fire(
+                "Los datos no se pudieron eliminar , contacte al administador!",
+                "",
+                "danger"
+              );
+            });
+        } else if (tipo === "usuario") {
+          borrarUsuario(value)
+            .then((data) => {
+              Swal.fire("Usuario eliminado correctamente!", "", "success");
+              location.reload();
+            })
+            .catch((error) => {
+              Swal.fire(
+                "Los datos no se pudieron eliminar , contacte al administador!",
+                "",
+                "danger"
+              );
+            });
+        }
+      }
+    });
+  }
 
   const [key, setKey] = useState("home");
   return (
@@ -61,7 +115,7 @@ function Catalog() {
             onSelect={(k) => setKey(k)}
             className="mb-3 shadow justify-content-center"
           >
-            {/*************************************TAB CATALOGO DE CATEGORIAS DE ARTICULOS *******************************************************/}
+            {/*************************************TAB CATALOGO DE CATEGORIAS  *******************************************************/}
             <Tab
               eventKey="categorias"
               title="Categorias-Articulos"
@@ -79,7 +133,7 @@ function Catalog() {
               <Table striped bordered hover size="sm">
                 <thead>
                   <tr>
-                    <th>Articulo</th>
+                    <th>Categoria</th>
                     <th>Descripcion</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -90,17 +144,28 @@ function Catalog() {
                     <tr>
                       <td>{categor.nombre}</td>
                       <td>{categor.descripcion}</td>
-                      <td>{categor.estado}</td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={categor.estado}
+                          desabled
+                        ></input>
+                      </td>
                       <td>
                         <a
                           className="btn"
                           title="Editar"
-                          key={categor}
                           onClick={() => setIsEditCategoriOpen(true, categor)}
                         >
                           <FaEdit color="#fd671a" />
                         </a>
-                        <a className="btn" title="Eliminar Registro">
+                        <a
+                          className="btn"
+                          title="Eliminar Registro"
+                          onClick={() => {
+                            eliminarArtic("categoria", categor._id);
+                          }}
+                        >
                           <MdDelete color="red" />
                         </a>
                       </td>
@@ -109,7 +174,7 @@ function Catalog() {
                 </tbody>
               </Table>
             </Tab>
-            {/**********************************************TAB CATALOGO DE ARTICULOS *************************************************************/}
+            {/********************************************** TAB CATALOGO DE ARTICULOS *************************************************************/}
             <Tab eventKey="articulos" title="Articulos" className="text-center">
               <h3 className="mt-5">Catalogo de los Articulos</h3>
               <Button
@@ -124,6 +189,9 @@ function Catalog() {
                   <tr>
                     <th>Articulo</th>
                     <th>Descripcion</th>
+                    <th>Categoria</th>
+                    <th>Disponible</th>
+                    <th>Cantidad Disponible</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -132,6 +200,16 @@ function Catalog() {
                     <tr>
                       <td>{producto.nombre}</td>
                       <td>{producto.descripcion}</td>
+                      <td>{producto.categoria.nombre}</td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={producto.estado}
+                          desabled
+                        ></input>
+                      </td>
+                      <td>{producto.stock}</td>
+
                       <td>
                         <a
                           className="btn"
@@ -140,7 +218,13 @@ function Catalog() {
                         >
                           <FaEdit color="#fd671a" />
                         </a>
-                        <a className="btn" title="Eliminar Registro">
+                        <a
+                          className="btn"
+                          title="Eliminar Registro"
+                          onClick={() => {
+                            eliminarArtic("articulo", producto._id);
+                          }}
+                        >
                           <MdDelete color="red" />
                         </a>
                       </td>
@@ -166,7 +250,7 @@ function Catalog() {
                     <th>Apellido's</th>
                     <th>Email</th>
                     <th>Rol</th>
-
+                    <th>Estado</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -176,8 +260,15 @@ function Catalog() {
                       <td>{usuari.nombre}</td>
                       <td>{usuari.apellido}</td>
                       <td>{usuari.email}</td>
-
                       <td>{usuari.rol}</td>
+
+                      <th>
+                        <input
+                          type="checkbox"
+                          checked={usuari.estado}
+                          desabled
+                        ></input>
+                      </th>
 
                       <td>
                         <a
@@ -187,7 +278,13 @@ function Catalog() {
                         >
                           <FaEdit color="#fd671a" />
                         </a>
-                        <a className="btn" title="Eliminar Registro">
+                        <a
+                          className="btn"
+                          title="Eliminar Registro"
+                          onClick={() => {
+                            eliminarArtic("usuario", usuari.uid);
+                          }}
+                        >
                           <MdDelete color="red" />
                         </a>
                       </td>
@@ -231,8 +328,10 @@ function Catalog() {
         />
       </Container>
       {/** **************************         Editar Usuario    *************** */}
-      <FormEditUser isOpen={isEditUserOpen}
-        closeModal={() => setIsEditUseriOpen(false)} />
+      <FormEditUser
+        isOpen={isEditUserOpen}
+        closeModal={() => setIsEditUseriOpen(false)}
+      />
     </div>
   );
 }

@@ -31,9 +31,10 @@ const Register = ({ isOpen, closeModal }) => {
       .then((datos) => {
         const error = datos.errors;
         if (datos.mensaje != "Usuario cargado correctamente") {
+          console.log(data)
           Swal.fire({
             icon: "error",
-            title: `¡Oops! ${error[0].msg}`,
+            title: `¡Oops! ${error}`,
             text: " favor de verificar.",
             toast: true,
             position: "top-end",
@@ -56,7 +57,7 @@ const Register = ({ isOpen, closeModal }) => {
         }
       })
       .catch((error) => {
-        console.error("Error al obtener los datos:", error); // Manejar el error
+        console.log("Error al obtener los datos:", error); // Manejar el error
       });
     {
       /** .then(response => {

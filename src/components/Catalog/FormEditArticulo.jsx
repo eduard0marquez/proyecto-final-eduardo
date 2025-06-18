@@ -94,7 +94,7 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Nombre"
+            placeholder="Nombre del Articulo"
             type="text"
             {...register("nombre")}
           />

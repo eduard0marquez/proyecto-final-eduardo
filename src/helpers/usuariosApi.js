@@ -5,7 +5,7 @@ const limite = 6;
 //Obtener Usuarios
 export const getUsuarios = async (desde = 0) => {
     try {
-        const resp = await fetch(url + "?limite=" + limite + "&desde=" + desde, {
+        const resp = await fetch(url , {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",

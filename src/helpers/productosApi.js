@@ -45,7 +45,7 @@ export const crearProducto = async (datos) => {
                 "x-token": token,
             },
         });
-        const sata = await resp.json();
+        const data = await resp.json();
 
         return data;
     } catch (error) {
@@ -54,7 +54,7 @@ export const crearProducto = async (datos) => {
 }
 
 //Actualizar Producto
-export const actualizarCategoria = async (id, datos) => {
+export const actualizarProducto = async (id, datos) => {
     try {
         const resp = await fetch(url + "/" + id, {
             method: "PUT",
@@ -73,7 +73,7 @@ export const actualizarCategoria = async (id, datos) => {
 }
 
 //Borrar Producto
-export const borrarCategoria = async (id) => {
+export const borrarProducto = async (id) => {
     try {
         const resp = await fetch(url + "/" + id, {
             method: "DELETE",
