@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Pagination } from "react-bootstrap";
 import { FaHeart, FaCartPlus } from "react-icons/fa";
 import "./Shop.css";
 import { getProductos } from "../../helpers/productosApi";
@@ -17,7 +17,7 @@ function Shop() {
   return (
     <>
       <div className="container">
-        <div className=" container row   cards vw-100 ">
+        <div className=" container row   cards vw-100  ">
           {articulos.map((artic) => (
             <Card className="  shadow col-5 col-md-3 col-lg-2 ">
               <Card.Img className="product-image" variant="" src={artic.img} />
@@ -44,6 +44,16 @@ function Shop() {
               </Card.Body>
             </Card>
           ))}
+          <Pagination className="justify-content-center mt-5 mb-5">
+            <Pagination.First />
+            <Pagination.Prev />
+            <Pagination.Item>{1}</Pagination.Item>
+            <Pagination.Item>{2}</Pagination.Item>
+            <Pagination.Item>{3}</Pagination.Item>
+
+            <Pagination.Next />
+            <Pagination.Last />
+          </Pagination>
         </div>
       </div>
     </>

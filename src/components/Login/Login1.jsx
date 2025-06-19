@@ -50,10 +50,12 @@ const Login = ({ isOpen, closeModal }) => {
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-          })
+          });
+          console.log(data.usuario);
           const { token, email, password } = data;
           localStorage.setItem("login", "ok");
           localStorage.setItem("email", email);
+          localStorage.setItem("id", JSON.stringify(datos.usuario._id));
           localStorage.setItem("rol", JSON.stringify(datos.usuario.rol));
           localStorage.setItem("token", JSON.stringify(datos.token));
           reset();

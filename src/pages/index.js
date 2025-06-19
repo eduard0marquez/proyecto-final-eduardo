@@ -8,3 +8,4 @@ export { default as Questions } from './Questions/Questions';
 export { default as Catalogos } from './Catalogos/Catalogos';
 export { default as Blog } from './Blog/Blog';
 export { default as Search } from './Search/Search';
+export{default as Myperfil} from './Myperfil/Myperfil'

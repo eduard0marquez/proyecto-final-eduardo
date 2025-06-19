@@ -155,7 +155,9 @@ function Catalog() {
                         <a
                           className="btn"
                           title="Editar"
-                          onClick={() => setIsEditCategoriOpen(true, categor)}
+                          onClick={() =>
+                            setIsEditCategoriOpen(true, categor, categor._id)
+                          }
                         >
                           <FaEdit color="#fd671a" />
                         </a>
@@ -214,7 +216,10 @@ function Catalog() {
                         <a
                           className="btn"
                           title="Editar"
-                          onClick={() => setIsEditArticuloiOpen(true)}
+                          onClick={() =>
+                            setIsEditArticuloiOpen(true, producto._id)
+                          }
+                          
                         >
                           <FaEdit color="#fd671a" />
                         </a>

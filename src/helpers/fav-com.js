@@ -1,11 +1,11 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com/api/productos";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/favorite";
 const token = JSON.parse(localStorage.getItem("token"));
 const limite = 15;
 
 //Obtener Productos
-export const getProductos = async (desde = 0) => {
+export const getFavs = async (id) => {
     try {
-        const resp = await fetch(url , {
+        const resp = await fetch(url ,+"/"+id, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -20,22 +20,10 @@ export const getProductos = async (desde = 0) => {
     }
 };
 
-//Obtener producto por ID
-export const getProductoByID = async (id) => {
-    try {
-        const resp = await fetch(url + "/" + id, {
-            "Content-type": "application/json;charset=UTF-8",
-            "x-token": token,
-        });
-        const data = await resp.json();
-        return data;
-    } catch (error) {
-        throw new Error("No se pudo obtener informacion");
-    }
-};
+
 
 //Crear Producto
-export const crearProducto = async (datos) => {
+export const AgregarFav = async (datos) => {
     try {
         const resp = await fetch(url, {
             method: "POST",
@@ -54,7 +42,7 @@ export const crearProducto = async (datos) => {
 }
 
 //Actualizar Producto
-export const actualizarProducto = async (id, datos) => {
+export const actualizarfav = async (id, datos) => {
     try {
         const resp = await fetch(url + "/" + id, {
             method: "PUT",
@@ -73,7 +61,7 @@ export const actualizarProducto = async (id, datos) => {
 }
 
 //Borrar Producto
-export const borrarProducto = async (id) => {
+export const borrarFav = async (id) => {
     try {
         const resp = await fetch(url + "/" + id, {
             method: "DELETE",

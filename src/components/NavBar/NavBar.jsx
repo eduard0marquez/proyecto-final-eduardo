@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
 import {
   Container,
   Nav,
@@ -32,24 +33,20 @@ import Swal from "sweetalert2";
 import { Logueado } from "../../helpers/controlLogin";
 import { Rol } from "../../helpers/controlRol";
 import { useForm } from "react-hook-form";
+import { Search } from "../../pages";
 function recargarNav() {
   location.reload();
 }
 function NavBar() {
-  
-   /*Estructura de React Hook*/
-    const {
-      register,
-      handleSubmit,
-      formState: { error },
-      reset,
+  let busqued;
+  /*Estructura de React Hook*/
+  const {
+    register,
+    handleSubmit,
+    formState: { error },
+    reset,
   } = useForm();
 
-  const busqueda = async (data) => {
-    Search(value)
-    navigate('/seart');
-  }
-  
   //Se obtiene el valor de logueado
   const sesion = Logueado();
   //Se obtiene el valor del Rol
@@ -61,6 +58,15 @@ function NavBar() {
 
   //se declara navigate para que redirija en caso de cerrar sesion
   const navigate = useNavigate();
+
+  //buscar ************************************
+  const busqueda = async (data) => {
+    navigate("/search");
+    let busqued = data;
+    localStorage.setItem("busca", data.valor);
+    location.reload();
+
+  };
 
   const Logout = () => {
     localStorage.removeItem("login");
@@ -108,7 +114,7 @@ function NavBar() {
                   required
                 />
                 <Button type="submit" className="buscar">
-                  Buscar{" "}
+                  Buscar
                 </Button>
               </Form>
             </Nav>
@@ -158,7 +164,7 @@ function NavBar() {
                   </Dropdown.Item>
                 )}
                 {sesion && (
-                  <Dropdown.Item href="#link3">
+                  <Dropdown.Item href="/perfil">
                     <FaCog color="#fd671a" size={15} />
                     <span className="submenubtn">Mi perfil</span>
                   </Dropdown.Item>

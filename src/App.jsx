@@ -7,9 +7,9 @@ import {
   Contact,
   Home,
   Loved,
+  Myperfil,
   NotFoundPage,
   Questions,
- 
   Search,
 } from "./pages";
 import { Routes, Route } from "react-router-dom";
@@ -30,7 +30,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/loved" element={<Loved />} />
         <Route path="/questions" element={<Questions />} />
-       
+
         <Route path="/search" element={<Search />} />
 
         <Route path="*" element={<NotFoundPage />} />
@@ -42,6 +42,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Catalogos />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <Myperfil />
             </ProtectedRoute>
           }
         />

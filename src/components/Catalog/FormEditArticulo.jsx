@@ -11,8 +11,11 @@ import { crearProducto } from "../../helpers/productosApi";
 import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 
-const FormEditArticulo = ({ isOpen, closeModal }) => {
+const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
+ 
   const [categorias, setCategorias] = useState([]);
+
+  
   useEffect(() => {
     getCategorias().then((data) => {
       setCategorias(data.categorias);

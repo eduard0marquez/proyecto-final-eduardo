@@ -9,6 +9,7 @@ function Loved() {
         <h3 className=" text-center mb-5 text-uppercase fw-bold fs-1 mt-5 rounded px-3 py-2">
           Favoritos
         </h3>
+        <LovedSection />
       </div>
     </Container>
   );
