@@ -23,6 +23,7 @@
     "react-hook-form": "^7.57.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.1",
+    "react-super-responsive-table": "^6.0.2",
     "sweetalert2": "^11.22.0",
     "yup": "^1.6.1"
   },

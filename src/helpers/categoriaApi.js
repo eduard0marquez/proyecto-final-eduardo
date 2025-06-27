@@ -22,13 +22,17 @@ export const getCategorias = async () => {
 //Obtener categoria por id
 export const getCategoriaByID = async (id) => {
     try {
-        const resp = await fetch(url + "/" + id, {
+        const resp = await fetch(url + '/' + id, {
+            method: "GET",
+            headers:{
             "Content-type": "application/json;charset=UTF-8",
-            "x-token": token,
+                "x-token": token,
+            },
         });
         const data = await resp.json();
         return data;
     } catch (error) {
+        console.log(error);
         throw new Error("No se pudo obtener informacion");
     }
 };

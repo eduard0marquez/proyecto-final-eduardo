@@ -6,12 +6,25 @@ import logo from "../../../public/assets/logo.png";
 import { BsDisplay } from "react-icons/bs";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
-import { actualizarCategoria } from "../../helpers/categoriaApi";
+import {
+  actualizarCategoria,
+  getCategoriaByID,
+} from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
+const categor = localStorage.getItem("category");
 
-const FormEditCategoria = ({ isOpen, closeModal, categoria }) => {
+const FormEditCategoria = ({ isOpen, closeModal }) => {
+  const [consulta, setConsulta] = useState();
+
+  //PRODUCTOS
+  useEffect(() => {
+    getCategoriaByID(categor).then((data) => {
+      localStorage.removeItem("category");
+      setConsulta(data.categoria);
+    });
+  }, []);
+
   /*Estructura de React Hook*/
-
   const {
     register,
     handleSubmit,
@@ -21,10 +34,10 @@ const FormEditCategoria = ({ isOpen, closeModal, categoria }) => {
 
   const envioCategoria = async (data) => {
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = actualizarCategoria(categoria._id, data)
+    const datos = actualizarCategoria(categor, data)
       .then((datos) => {
         const { nombre } = data;
-        console.log(id, datos);
+
         if (datos.msg === `La categoria ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -67,6 +80,7 @@ const FormEditCategoria = ({ isOpen, closeModal, categoria }) => {
       })*/
     }
   };
+
   if (!isOpen) return null;
 
   return (
@@ -81,18 +95,18 @@ const FormEditCategoria = ({ isOpen, closeModal, categoria }) => {
         <Form onSubmit={handleSubmit(envioCategoria)}>
           <Form.Label>Nombre (Opcional)</Form.Label>
           <Form.Control
-            placeholder="Nuevo Nombre de la Categoria"
+            placeholder={consulta.nombre}
             type="text"
             {...register("nombre")}
           />
 
           <Form.Label>Descripción (Opcional)</Form.Label>
           <Form.Control
-            placeholder=" Nueva Descripción de la categoria"
+            placeholder={consulta.descripcion}
             type="text"
             id="descripcion"
             {...register("descripcion")}
-          />
+          ></Form.Control>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
             Guardar Cambios

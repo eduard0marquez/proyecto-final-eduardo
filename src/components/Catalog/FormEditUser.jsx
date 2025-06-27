@@ -8,12 +8,14 @@ import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import axios from "axios";
-import { crearUsuario } from "../../helpers/fetchApi";
+import { actualizarUsuario, getUsuarioByID } from "../../helpers/usuariosApi";
 import Swal from "sweetalert2";
 import Login from "../Login/Login1";
+const usuar = localStorage.getItem("user");
 
 const FormEditUser = ({ isOpen, closeModal }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [user, setUser] = useState();
 
   /*Estructura de React Hook*/
   const {
@@ -22,12 +24,16 @@ const FormEditUser = ({ isOpen, closeModal }) => {
     formState: { error },
     reset,
   } = useForm();
-  {
-    /*Envio de info a la Base por medio de la API, se hace asincrona por el tiempo que puede demorar el proceso*/
-  }
+
+  useEffect(() => {
+    getUsuarioByID(usuar).then((data) => {
+      setUser(data.usuario);
+    });
+  }, []);
+
   const envioRegistro = async (data) => {
     /* Se ejecuta y se le pasa como valor los datos del form */
-    const datos = crearUsuario(data)
+    const datos = actualizarUsuario(data)
       .then((datos) => {
         const error = datos.errors;
         if (datos.mensaje != "Usuario cargado correctamente") {
@@ -87,7 +93,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Nombre"
+            placeholder={user.nombre}
             type="text"
             {...register("nombre")}
           />
@@ -95,7 +101,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
           <Form.Label>Apellido</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Apellido"
+            placeholder={user.apellido}
             type="text"
             id="apellido"
             {...register("apellido")}
@@ -104,7 +110,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
           <Form.Label>Email</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Email"
+            placeholder={user.email}
             type="email"
             {...register("email")}
           />
@@ -112,7 +118,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa tu Contraseña (Al menos 8 catacteres) "
+            placeholder={user.password}
             type="password"
             id="password"
             minLength={8}
@@ -121,23 +127,29 @@ const FormEditUser = ({ isOpen, closeModal }) => {
 
           <Form.Label>Direccíon</Form.Label>
           <Form.Control
-            placeholder="Direccíon con CP"
+            placeholder={user.direccion}
             type="text"
             {...register("direccion")}
           />
 
           <Form.Label>Fecha de Nacimiento</Form.Label>
           <Form.Control
-            placeholder="Ingresa tu Fecha de Nacimiento"
+            value={user.fechaNacimiento}
             type="date"
             {...register("fechaNacimiento")}
           />
 
           <Form.Label>Imagen</Form.Label>
           <Form.Control
-            placeholder="Ingresa el Link de tu imagen"
+            placeholder={user.img}
             type="text"
             {...register("img")}
+          />
+          <Form.Label>Rol</Form.Label>
+          <Form.Control
+            placeholder={user.rol}
+            type="text"
+            {...register("rol")}
           />
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">

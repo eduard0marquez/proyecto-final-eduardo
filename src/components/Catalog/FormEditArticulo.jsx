@@ -7,26 +7,27 @@ import { BsDisplay } from "react-icons/bs";
 import { authLogin } from "../../helpers/ApiLogin";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { crearProducto } from "../../helpers/productosApi";
+import {
+  getProductoByID,
+  actualizarProducto,
+} from "../../helpers/productosApi";
 import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
+const articul = localStorage.getItem("artic");
 
-const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
- 
+const FormEditArticulo = ({ isOpen, closeModal }) => {
+  const [articulo, setArticulo] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
-  
   useEffect(() => {
-    getCategorias().then((data) => {
-      setCategorias(data.categorias);
+    getProductoByID(articul).then((data) => {
+      setArticulo(data.producto);
     });
   }, []);
 
-  const obtenerCategorias = getCategorias().then((obtenerCategorias) => {
-    const { id } = obtenerCategorias;
-    console.log();
+  const obtenerCategorias = getCategorias().then((data) => {
+    setCategorias(data)
   });
-  console.log();
 
   const {
     register,
@@ -37,7 +38,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
 
   const envioProducto = async (data) => {
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = crearProducto(data)
+    const datos = actualizarProducto(data)
       .then((datos) => {
         const { nombre } = data;
         if (datos.msg === `El artículo ${nombre} ya existe`) {
@@ -97,14 +98,14 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
           <Form.Label>Nombre</Form.Label>
           <Form.Control
             required
-            placeholder="Nombre del Articulo"
+            placeholder={articulo.nombre}
             type="text"
             {...register("nombre")}
           />
           <Form.Label>Precio</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa el precio"
+            placeholder={articulo.precio}
             type="number"
             {...register("precio")}
           />
@@ -112,7 +113,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
           <Form.Label>Descripción</Form.Label>
           <Form.Control
             required
-            placeholder="Descripción del artículo"
+            placeholder={articulo.descripcion}
             type="text"
             id="descripcion"
             {...register("descripcion")}
@@ -121,7 +122,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
           <Form.Label>Fabricante</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa el fanricante"
+            placeholder={articulo.fabricante}
             type="text"
             {...register("fabricante")}
           />
@@ -129,7 +130,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
           <Form.Label>Imagen</Form.Label>
           <Form.Control
             required
-            placeholder="Ingresa el link de tu imagen"
+            placeholder={articulo.img}
             type="text"
             {...register("img")}
           />
@@ -137,7 +138,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
           <Form.Label>Stock</Form.Label>
           <Form.Control
             required
-            placeholder="Pzas en exitencia"
+            placeholder={articulo.stock}
             type="number"
             {...register("stock")}
           />
@@ -148,10 +149,7 @@ const FormEditArticulo = ({ isOpen, closeModal, datos }) => {
             type="select"
             {...register("categoria")}
           >
-            <option>Selecciona una opcion</option>
-            {categorias.map((categor) => (
-              <option>{categor.nombre}</option>
-            ))}
+            
           </Form.Select>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">

@@ -4,12 +4,18 @@ import Accordion from "react-bootstrap/Accordion";
 import { FaPlus, FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import "./Catalog.css";
+import "./responsive.bootstrap.min.css";
 import FormNuevaCategoria from "./FormNuevaCategoria";
 import FormEditCategoria from "./FormEditCategoria";
 import FormNuevoArticulo from "./FormNuevoArticulo";
 import FormEditArticulo from "./FormEditArticulo";
 import FormEditUser from "./FormEditUser";
-import { borrarCategoria, getCategorias } from "../../helpers/categoriaApi";
+
+import {
+  borrarCategoria,
+  getCategorias,
+  getCategoriaByID,
+} from "../../helpers/categoriaApi";
 import { getProductos, borrarProducto } from "../../helpers/productosApi";
 import Register from "../Login/Register";
 import { getUsuarios, borrarUsuario } from "../../helpers/usuariosApi";
@@ -45,14 +51,14 @@ function Catalog() {
     });
   }, []);
 
-  //  **********************************************   ELIMINAR CATEGORIA **********************************************************
+  //  **********************************************   ELIMINAR CATEGORIA / ARTICULO O USUARIO **********************************************************
   function eliminarArtic(tipo, value) {
     Swal.fire({
       title: `¿Segur@ que deseas borrar ?`,
       showCancelButton: true,
       confirmButtonText: "Si",
     }).then((result) => {
-      /* En caso que confirme que si se quiere eliminar */
+      /* En caso que confirme que si se quiere Eliminar , VERIFICA SI ES CATEGORIA*/
       if (result.isConfirmed) {
         if (tipo === "categoria") {
           borrarCategoria(value)
@@ -67,7 +73,7 @@ function Catalog() {
                 "danger"
               );
             });
-        } else if (tipo === "articulo") {
+        } /* SI ES CARTICULO */ else if (tipo === "articulo") {
           borrarProducto(value)
             .then((data) => {
               Swal.fire("Articulo eliminado correctamente!", "", "success");
@@ -80,7 +86,7 @@ function Catalog() {
                 "danger"
               );
             });
-        } else if (tipo === "usuario") {
+        } /* SI ES CARTICULO */ else if (tipo === "usuario") {
           borrarUsuario(value)
             .then((data) => {
               Swal.fire("Usuario eliminado correctamente!", "", "success");
@@ -98,7 +104,25 @@ function Catalog() {
     });
   }
 
+  //  **********************************************   EDITAR CATEGORIA **********************************************************
+  function editarCategori(value) {
+    localStorage.setItem("category", value);
+    setIsEditCategoriOpen(true);
+  }
+
+  //  **********************************************   EDITAR ARTICULO **********************************************************
+  function editarArtic(value) {
+    localStorage.setItem("artic", value);
+    setIsEditArticuloiOpen(true);
+  }
+  //  **********************************************   EDITAR Usuario **********************************************************
+  function editarUser(value) {
+    localStorage.setItem("user", value);
+    setIsEditUseriOpen(true);
+  }
+
   const [key, setKey] = useState("home");
+
   return (
     <div>
       <Container style={{ marginTop: 100 }}>
@@ -155,9 +179,7 @@ function Catalog() {
                         <a
                           className="btn"
                           title="Editar"
-                          onClick={() =>
-                            setIsEditCategoriOpen(true, categor, categor._id)
-                          }
+                          onClick={() => editarCategori(categor._id)}
                         >
                           <FaEdit color="#fd671a" />
                         </a>
@@ -186,7 +208,13 @@ function Catalog() {
                 <FaPlus size={20} />
                 <span>Nuevo Articulo</span>
               </Button>
-              <Table striped bordered hover size="sm">
+              <Table
+                striped
+                bordered
+                hover
+                size="sm"
+                className="table-responsive"
+              >
                 <thead>
                   <tr>
                     <th>Articulo</th>
@@ -216,10 +244,7 @@ function Catalog() {
                         <a
                           className="btn"
                           title="Editar"
-                          onClick={() =>
-                            setIsEditArticuloiOpen(true, producto._id)
-                          }
-                          
+                          onClick={() => editarArtic(producto._id)}
                         >
                           <FaEdit color="#fd671a" />
                         </a>
@@ -279,7 +304,7 @@ function Catalog() {
                         <a
                           className="btn"
                           title="Editar"
-                          onClick={() => setIsEditUseriOpen(true)}
+                          onClick={() => editarUser(usuari._id)}
                         >
                           <FaEdit color="#fd671a" />
                         </a>

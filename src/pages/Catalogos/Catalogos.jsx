@@ -1,14 +1,13 @@
-import React from 'react'
-import { Catalog} from '../../components'
+import React from "react";
+import { Catalog } from "../../components";
 
 function Shop() {
   return (
-    <div className='vh-100'>
+    <div className="">
       Shop
-      <Catalog/>
-      
+      <Catalog />
     </div>
-  )
+  );
 }
 
-export default Shop
+export default Shop;
