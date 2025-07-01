@@ -46,9 +46,10 @@ export const crearProducto = async (datos) => {
             },
         });
         const data = await resp.json();
-
         return data;
     } catch (error) {
+        console.log(token)
+        console.log(error)
         return { msg: "No se conecto con el Backend" };
     }
 }

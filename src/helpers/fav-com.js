@@ -1,6 +1,5 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com/api/favorite";
+const url = "http://localhost:3000/api/favorite";
 const token = JSON.parse(localStorage.getItem("token"));
-const limite = 15;
 
 //Obtener Productos
 export const getFavs = async (id) => {
@@ -25,20 +24,21 @@ export const getFavs = async (id) => {
 //Crear Producto
 export const AgregarFav = async (datos) => {
     try {
-        const resp = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(datos),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                "x-token": token,
-            },
-        });
-        const data = await resp.json();
+    const resp = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "x-token": token,
+        },
+    });
+    const data = await resp.json();
 
-        return data;
-    } catch (error) {
-        return { msg: "No se conecto con el Backend" };
-    }
+    return data;
+} catch (error) {
+  console.log(datos)
+    return { msg: "No se conecto con el Backend" };
+}
 }
 
 //Actualizar Producto

@@ -25,9 +25,7 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
     });
   }, []);
 
-  const obtenerCategorias = getCategorias().then((data) => {
-    setCategorias(data)
-  });
+  
 
   const {
     register,

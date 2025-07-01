@@ -53,8 +53,7 @@ export const crearCategoria = async (datos) => {
 
         return data;
     } catch (error) {
-        console.log(error)
-        console.log(error)
+   
         return { msg: "No se conecto con el Backend" };
     }
 }

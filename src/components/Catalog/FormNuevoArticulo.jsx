@@ -37,7 +37,6 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
     const datos = crearProducto(data)
       .then((datos) => {
         const { nombre } = data;
-        console.log(data.categoria)
         if (datos.msg === `El artículo ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",

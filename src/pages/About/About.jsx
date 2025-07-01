@@ -34,7 +34,7 @@ function About() {
               <div className="flip-card-front">
                 <Image
                   className="foto"
-                  src="https://scontent.fmex10-2.fna.fbcdn.net/v/t39.30808-6/480519534_9392905714150847_8499012358417627994_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHXVCjD3fA0aSJrpIGRBLtnJb1ouquoMJQlvWi6q6gwlOCBzXVH0vd8LzQukrOz_0C_X1T_zNPovfuWrG-rPz_b&_nc_ohc=xhK7FTKsI2cQ7kNvwH6jInB&_nc_oc=AdndD4ijOrWG5c2uUm5z-9-ksWG4dAo7UUVdnyJgWeHXteYT8uct1EczDagqLcsOCjRi8t1YVBCPzF4Bv1GaYYCG&_nc_zt=23&_nc_ht=scontent.fmex10-2.fna&_nc_gid=TkGubk48XfTnJuqB4AHHSA&oh=00_AfNmBreEsKggIjLHX2Zi3CaQoBFtv5Sn-9bXKtkhk28DxA&oe=686211F6"
+                  src="https://res.cloudinary.com/dppgbrtfk/image/upload/v1750212456/lnckxptnzxen7w71hiys.jpg"
                   roundedCircle
                 />
 
