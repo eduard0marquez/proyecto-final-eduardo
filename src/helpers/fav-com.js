@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/api/favorite";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/favorite";
 const token = JSON.parse(localStorage.getItem("token"));
 
 //Obtener Productos
