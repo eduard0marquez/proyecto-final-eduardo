@@ -1,15 +1,16 @@
 import { Logueado } from "../../helpers/controlLogin";
 import { Button, Card, Pagination } from "react-bootstrap";
 import {  FaCartPlus, FaTrashAlt } from "react-icons/fa";
-import { getProductos } from "../../helpers/productosApi";
+import { getFavs } from "../../helpers/fav-com";
 import { useEffect, useState } from "react";
+const id = JSON.parse(localStorage.getItem("id")) || null;
 
 function LovedSection() {
   const [articulos, setArticulos] = useState([]);
     useEffect(() => {
-      getProductos().then((data) => {
-        setArticulos(data.productos);
-        console.log("valor", data.productos);
+      getFavs(id).then((data) => {
+        console.log("valor", data.favoritos);
+        setArticulos(data.favoritos);
       });
     }, []);
   //Se obtiene el valor de logueado
@@ -27,18 +28,18 @@ function LovedSection() {
                   <Card.Img
                     className="product-image"
                     variant=""
-                    src={artic.img}
+                    src={artic.producto.img}
                   />
                   <Card.Body>
-                    <Card.Title className="title "> {artic.nombre}</Card.Title>
+                    <Card.Title className="title "> {artic.producto.nombre}</Card.Title>
                     <Card.Text className="descripcion">
                       <span>
-                        <strong>{artic.categoria.nombre}</strong>{" "}
+                        <strong>{artic.destacado}</strong>{" "}
                       </span>
                       <br />
-                      {artic.descripcion}
+                      {artic.producto.descripcion}
                       <br />
-                      <strong className="precio">${artic.precio}</strong> MXN
+                      <strong className="precio">${artic.producto.precio}</strong> MXN
                     </Card.Text>
                     <Card.Text className="text-center ">
                       <a type="button" className="btn col-6">

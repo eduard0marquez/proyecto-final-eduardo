@@ -4,7 +4,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 //Obtener Productos
 export const getFavs = async (id) => {
     try {
-        const resp = await fetch(url ,+"/"+id, {
+        const resp = await fetch(url +"/"+id, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
@@ -14,10 +14,10 @@ export const getFavs = async (id) => {
         const data = await resp.json();
         return data;
     } catch (error) {
-        console.log(error);
-        throw new Error("No se pudo obtener informacion");
+        return { msg: "No se pudo obtener informacion" };
     }
 };
+
 
 
 
