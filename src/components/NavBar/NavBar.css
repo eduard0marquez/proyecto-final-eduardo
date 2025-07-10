@@ -49,3 +49,10 @@ figcaption {
 .heart:hove{
   transform: scale(1.5);
 }
+.num{
+ color: var(--primary-color);
+ background-color: none;
+ margin-left: -3px;
+  
+
+}

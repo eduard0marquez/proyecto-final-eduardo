@@ -17,3 +17,4 @@ export { default as RouterApp } from '../Routes/RoutesApp';
 export { default as LovedSection } from "./LovedSection/LovedSection";
 export { default as Search } from "./Search/Search";
 export { default as Pefil } from './Perfil/Perfil';
+export { default as Cartt } from './Cartt/Cartt';

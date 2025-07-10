@@ -39,6 +39,7 @@ function Shop() {
             timer: 3000,
             timerProgressBar: true,
           });
+          location.reload();
         }
       })
       .catch((error) => {

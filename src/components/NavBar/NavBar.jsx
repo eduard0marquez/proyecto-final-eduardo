@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from "react";
 import {
   Container,
@@ -11,6 +10,7 @@ import {
   DropdownButton,
   DropdownMenu,
   NavDropdown,
+  Badge,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../public/assets/logo.png";
@@ -34,10 +34,14 @@ import { Logueado } from "../../helpers/controlLogin";
 import { Rol } from "../../helpers/controlRol";
 import { useForm } from "react-hook-form";
 import { Search } from "../../pages";
+import { getFavs, getComp } from "../../helpers/fav-com";
+const id = JSON.parse(localStorage.getItem("id")) || null;
 function recargarNav() {
   location.reload();
 }
 function NavBar() {
+  const [favorite, setFavorite] = useState();
+  const [compra, setCompra] = useState();
   let busqued;
   /*Estructura de React Hook*/
   const {
@@ -65,8 +69,18 @@ function NavBar() {
     let busqued = data;
     localStorage.setItem("busca", data.valor);
     location.reload();
-
   };
+
+  
+  getFavs(id).then((data) => {
+      setFavorite(data.total);
+  });
+  
+    getComp(id).then((data) => {
+      setCompra(data.total);
+    });
+   
+ 
 
   const Logout = () => {
     localStorage.removeItem("login");
@@ -137,10 +151,16 @@ function NavBar() {
 
               <a type="button" className="btn " href="/loved">
                 <FaHeart color="red" size={25} className="heart" />
+                {sesion && (
+                  <Badge className="num" bg="ligh" >
+                    {favorite}
+                  </Badge>
+                )}
               </a>
 
               <a type="button" className="btn " href="/cart">
                 <FaCartPlus color="black" size={25} />
+                {sesion && <Badge className="num" bg="liht">{compra}</Badge>}
               </a>
 
               {/*Se crea el boton y se cambia el estado del modal a "true" para mostrarlo */}

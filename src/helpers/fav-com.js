@@ -4,17 +4,37 @@ const token = JSON.parse(localStorage.getItem("token"));
 //Obtener Productos
 export const getFavs = async (id) => {
     try {
-        const resp = await fetch(url +"/"+id, {
+        const resp = await fetch(url + "/" + id, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
                 "x-token": token,
             },
+           
         });
         const data = await resp.json();
         return data;
     } catch (error) {
-        return { msg: "No se pudo obtener informacion" };
+        
+        return { msg: "No se conecto con el Backend" };
+    }
+};
+//Obtener Productos para Compra
+export const getComp = async (id) => {
+    try {
+        const resp = await fetch(url + "/compra/" + id, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "x-token": token,
+            },
+           
+        });
+        const data = await resp.json();
+        return data;
+    } catch (error) {
+        
+        return { msg: "No se conecto con el Backend" };
     }
 };
 
@@ -59,6 +79,27 @@ export const actualizarfav = async (id, datos) => {
         return { msg: "No se conecto con el Backend" };
     }
 }
+
+//Actualizar Articulo
+export const actualizarFav = async (id, datos) => {
+    try {
+        const resp = await fetch(url + "/" + id, {
+            method: "PUT",
+            body: JSON.stringify(datos),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "x-token": token,
+            },
+        });
+        const data = await resp.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        return { msg: "No se conecto con el Backend" };
+    }
+}
+
+
 
 //Borrar Producto
 export const borrarFav = async (id) => {
