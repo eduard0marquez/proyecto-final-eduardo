@@ -13,22 +13,17 @@ const id = JSON.parse(localStorage.getItem("id")) || null;
 
 
 function Cartt() {
-  const [articulos, setArticulos] = useState([]);
-  initMercadoPago("YOUR_PUBLIC_KEY", {
-    locale:"es-MX",
-  });
+  const [articulos, setArticuloss] = useState([]);
+  
   useEffect(() => {
     getComp(id).then((data) => {
-      setArticulos(data.favoritos);
-    });
-  }, []);
+       setArticuloss(data.favoritos)
+      });
+    }, []);
   //Se obtiene el valor de logueado
   const sesion = Logueado();
 
-  function totalArticulos(precio,num) {
-    const tot=precio*num
-    return tot
-  }
+  
   return (
     <div>
       {sesion ? (
@@ -63,14 +58,13 @@ function Cartt() {
                           min={1}
                         />
                       </td>
-                      <td>{totalArticulos(artic.producto.precio,{numero})}</td>
+                      <td></td>
                     </tr>
                   </tbody>
                 ))}
                 <tfoot>
                   <tr>
                     <th>Total</th>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
