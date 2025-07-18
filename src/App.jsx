@@ -15,7 +15,7 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { Footer, NavBar, ProtectedRoute } from "./components";
 import { UserProvider } from "./components/Contextt/user.context";
-import RoutesApp from "./Routes/RoutesApp";
+
 
 function App() {
   return (

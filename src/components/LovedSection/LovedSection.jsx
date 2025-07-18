@@ -97,7 +97,7 @@ function LovedSection() {
                           eliminarFav(artic._id);
                         }}
                       >
-                        <FaTrashAlt color="red" size={30} className="heart" />
+                        <FaTrashAlt color="red" size={30} className="trash" />
                       </a>
 
                       <a

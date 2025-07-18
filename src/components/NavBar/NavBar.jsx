@@ -36,7 +36,8 @@ import { useForm } from "react-hook-form";
 import { Search } from "../../pages";
 import { getFavs, getComp } from "../../helpers/fav-com";
 const id = JSON.parse(localStorage.getItem("id")) || null;
-function recargarNav() {
+function recargarNav(recargar) {
+  const [recarga, setRecarga] = useState();
   location.reload();
 }
 function NavBar() {

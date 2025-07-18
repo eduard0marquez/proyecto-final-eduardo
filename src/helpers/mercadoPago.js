@@ -1,14 +1,20 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com/api/usuarios";
+const url = "https://proyecto-final-eduardo-backend.onrender.com/api/mercado/create_preference";
+const token = JSON.parse(localStorage.getItem("token"));
 
-export const crearPago = async (datos) => {
+//Crear Producto
+export const agregarArticulo = async () => {
     try {
-        const resp = await fetch(url , {
-            method: "POST",
-            body: JSON.stringify(datos),
-        });
-        const data = await resp.json();
-        return data;
-    } catch (error) {
-        return { msg: "no se conecto con backend" };
-    }
-};
+    const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "x-token": token,
+        },
+    });
+    const data = await resp.json();
+    
+    return data;
+} catch (error) {
+    return { msg: "No se conecto con el Backend" };
+}
+}

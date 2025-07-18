@@ -1,6 +1,6 @@
 const url = "https://proyecto-final-eduardo-backend.onrender.com/api/categorias";
 const token = JSON.parse(localStorage.getItem("token"));
-const limite = 6;
+const param = 1;
 //Obtener categorias
 export const getCategorias = async () => {
     try {

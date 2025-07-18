@@ -1,11 +1,12 @@
 const url = "https://proyecto-final-eduardo-backend.onrender.com/api/productos";
 const token = JSON.parse(localStorage.getItem("token"));
-const limite = 15;
+
 
 //Obtener Productos
-export const getProductos = async (desde = 0) => {
+export const getProductos = async (param) => {
     try {
-        const resp = await fetch(url , {
+        
+        const resp = await fetch(`${url}?pagina=${param.params.pagina}&limite=${param.params.limite}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
