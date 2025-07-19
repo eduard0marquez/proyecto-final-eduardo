@@ -16,18 +16,19 @@ function Shop() {
   const [articulosRef, setArticulosRef] = useState(1);
   const [limteArtic, setLimiteArtic] = useState();
   const [paginas, setPagination] = useState([]);
+  let pagin;
   let limiteArtic;
   //Si la pantalla es menor a 768(chica), entonces se pone un limite de articulo para que se muestren 10 articulos por pagina
   if (window.innerWidth < 768) {
-    limiteArtic = 4;
+    limiteArtic = 10;
   }
   //En caso de ser mayor a 991(Grande),entonces se pone un limite de articulo para que se muestren 15 articulos por pagina
   else if (window.innerWidth > 991) {
-    limiteArtic = 5;
+    limiteArtic = 15;
   }
   //En caso de no ser ni grande ni pequeña la pantalla,entonces se pone un limite de articulo para que se muestren 12 articulos por pagina
   else {
-    limiteArtic = 3;
+    limiteArtic = 12;
   }
 
   useEffect(() => {
@@ -115,13 +116,20 @@ function Shop() {
     });
   };
   //Se hace el contador para que se agreguen el numero de paginas correspondientes
-  for (let i = 1; i <= paginas; i++) {
-    pagination.push(i);
+  if (paginas > 1) {
+    pagin=true
+    for (let i = 1; i <= paginas; i++) {
+      pagination.push(i);
+    }
   }
+  
+  
+
+
   return (
     <>
       <div className="container">
-        <div className=" container row   cards vw-100  ">
+        <div className=" container row   cards vw-100 cards ">
           {articulos?.map((artic) => (
             <Card key={artic._id} className="  shadow col-5 col-md-3 col-lg-2 ">
               <Card.Img className="product-image" variant="" src={artic.img} />
@@ -160,29 +168,31 @@ function Shop() {
               </Card.Body>
             </Card>
           ))}
-          <Pagination className="justify-content-center mt-5 mb-5">
-            <Pagination.First
-              onClick={() => {
-                cargarInfo(1);
-              }}
-            />
-
-            {pagination?.map((pagina) => (
-              <Pagination.Item
+          {pagin && (
+            <Pagination className="justify-content-center mt-5 mb-5">
+              <Pagination.First
                 onClick={() => {
-                  cargarInfo(pagina);
+                  cargarInfo(1);
                 }}
-              >
-                {pagina}
-              </Pagination.Item>
-            ))}
+              />
 
-            <Pagination.Last
-              onClick={() => {
-                cargarInfo(paginas);
-              }}
-            />
-          </Pagination>
+              {pagination?.map((pagina) => (
+                <Pagination.Item
+                  onClick={() => {
+                    cargarInfo(pagina);
+                  }}
+                >
+                  {pagina}
+                </Pagination.Item>
+              ))}
+
+              <Pagination.Last
+                onClick={() => {
+                  cargarInfo(paginas);
+                }}
+              />
+            </Pagination>
+          )}
         </div>
       </div>
     </>
