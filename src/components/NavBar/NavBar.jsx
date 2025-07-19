@@ -37,7 +37,6 @@ import { Search } from "../../pages";
 import { getFavs, getComp } from "../../helpers/fav-com";
 const id = JSON.parse(localStorage.getItem("id")) || null;
 function recargarNav(recargar) {
-  const [recarga, setRecarga] = useState();
   location.reload();
 }
 function NavBar() {
@@ -72,16 +71,13 @@ function NavBar() {
     location.reload();
   };
 
-  
   getFavs(id).then((data) => {
-      setFavorite(data.total);
+    setFavorite(data.total);
   });
-  
-    getComp(id).then((data) => {
-      setCompra(data.total);
-    });
-   
- 
+
+  getComp(id).then((data) => {
+    setCompra(data.total);
+  });
 
   const Logout = () => {
     localStorage.removeItem("login");
@@ -153,7 +149,7 @@ function NavBar() {
               <a type="button" className="btn " href="/loved">
                 <FaHeart color="red" size={25} className="heart" />
                 {sesion && (
-                  <Badge className="num" bg="ligh" >
+                  <Badge className="num" bg="ligh">
                     {favorite}
                   </Badge>
                 )}
@@ -161,7 +157,11 @@ function NavBar() {
 
               <a type="button" className="btn " href="/cart">
                 <FaCartPlus color="black" size={25} />
-                {sesion && <Badge className="num" bg="liht">{compra}</Badge>}
+                {sesion && (
+                  <Badge className="num" bg="liht">
+                    {compra}
+                  </Badge>
+                )}
               </a>
 
               {/*Se crea el boton y se cambia el estado del modal a "true" para mostrarlo */}
