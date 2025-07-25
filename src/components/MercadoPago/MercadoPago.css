@@ -1,0 +1,5 @@
+.btn-mercado{
+    display: flex;
+    justify-content: center; 
+    border: 10px 10px 10px red;  
+}

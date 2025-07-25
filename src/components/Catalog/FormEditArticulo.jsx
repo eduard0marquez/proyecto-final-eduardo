@@ -15,7 +15,7 @@ import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 const articul = localStorage.getItem("artic");
 
-const FormEditArticulo = ({ isOpen, closeModal }) => {
+const FormEditArticulo = ({ isOpen, closeModal}) => {
   const [articulo, setArticulo] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
@@ -24,9 +24,11 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
       setArticulo(data.producto);
     });
   }, []);
-
-  
-
+useEffect(() => {
+    getCategorias().then((data) => {
+      setCategorias(data.categorias);
+    });
+  }, []);
   const {
     register,
     handleSubmit,
@@ -36,9 +38,10 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
 
   const envioProducto = async (data) => {
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = actualizarProducto(data)
+    const datos = actualizarProducto(articul,data)
       .then((datos) => {
         const { nombre } = data;
+        console.log(data)
         if (datos.msg === `El artículo ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -62,6 +65,7 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
           });
           reset();
           closeModal(true);
+          localStorage.removeItem("artic");
         }
       })
       .catch((error) => {
@@ -95,14 +99,12 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
         <Form onSubmit={handleSubmit(envioProducto)}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.nombre}
             type="text"
             {...register("nombre")}
           />
           <Form.Label>Precio</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.precio}
             type="number"
             {...register("precio")}
@@ -110,7 +112,6 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
 
           <Form.Label>Descripción</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.descripcion}
             type="text"
             id="descripcion"
@@ -119,7 +120,6 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
 
           <Form.Label>Fabricante</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.fabricante}
             type="text"
             {...register("fabricante")}
@@ -127,7 +127,6 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
 
           <Form.Label>Imagen</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.img}
             type="text"
             {...register("img")}
@@ -135,20 +134,17 @@ const FormEditArticulo = ({ isOpen, closeModal }) => {
 
           <Form.Label>Stock</Form.Label>
           <Form.Control
-            required
             placeholder={articulo.stock}
             type="number"
             {...register("stock")}
           />
           <Form.Label>Categoria</Form.Label>
-          <Form.Select
-            required
-            placeholder="Pzas en exitencia"
-            type="select"
-            {...register("categoria")}
-          >
-            
-          </Form.Select>
+          <Form.Select  type="select" {...register("categoria")}>
+                      <option>{articulo.categoria.nombre}</option>
+                      {categorias.map((categor) => (
+                        <option value={categor._id}>{categor.nombre}</option>
+                      ))}
+                    </Form.Select>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
             Guardar Cambios

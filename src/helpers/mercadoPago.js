@@ -2,19 +2,31 @@ const url = "https://proyecto-final-eduardo-backend.onrender.com/api/mercado/cre
 const token = JSON.parse(localStorage.getItem("token"));
 
 //Crear Producto
-export const agregarArticulo = async () => {
+export const agregarArticulo = async (title,quantity,price) => {
+    const datos = {
+       'title':title,
+        'quantity':quantity,
+        'price':price
+    }
+    console.log(datos)
+
     try {
     const resp = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "x-token": token,
+            'Content-Type': 'application/json',
         },
+        body:JSON.stringify(datos),
+       
     });
     const data = await resp.json();
-    
-    return data;
-} catch (error) {
+
+        return data;
+        
+    } catch (error) {
+        
+        console.log(error)
+        console.log(datos)
     return { msg: "No se conecto con el Backend" };
 }
 }

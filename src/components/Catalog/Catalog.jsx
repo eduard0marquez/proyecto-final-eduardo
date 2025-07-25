@@ -34,8 +34,13 @@ function Catalog() {
 
   //PRODUCTOS
   useEffect(() => {
-    getProductos().then((data) => {
-      setProductos(data.productos);
+    
+    getProductos({
+      params: {
+        limite: 100,
+      },
+    }).then((data) => {
+      setProductos(data.productos.docs);
     });
   }, []);
   //CATEGORIAS
@@ -50,6 +55,7 @@ function Catalog() {
       setUsuarios(data.usuarios);
     });
   }, []);
+  
 
   //  **********************************************   ELIMINAR CATEGORIA / ARTICULO O USUARIO **********************************************************
   function eliminarArtic(tipo, value) {
@@ -113,7 +119,7 @@ function Catalog() {
   //  **********************************************   EDITAR ARTICULO **********************************************************
   function editarArtic(value) {
     localStorage.setItem("artic", value);
-    setIsEditArticuloiOpen(true);
+    setIsEditArticuloiOpen(true,value);
   }
   //  **********************************************   EDITAR Usuario **********************************************************
   function editarUser(value) {
@@ -165,7 +171,7 @@ function Catalog() {
                 </thead>
                 <tbody>
                   {categorias.map((categor) => (
-                    <tr>
+                    <tr key={categor._id}>
                       <td>{categor.nombre}</td>
                       <td>{categor.descripcion}</td>
                       <td>
@@ -227,7 +233,7 @@ function Catalog() {
                 </thead>
                 <tbody>
                   {productos.map((producto) => (
-                    <tr>
+                    <tr key={producto._id}>
                       <td>{producto.nombre}</td>
                       <td>{producto.descripcion}</td>
                       <td>{producto.categoria.nombre}</td>
@@ -286,7 +292,7 @@ function Catalog() {
                 </thead>
                 <tbody>
                   {users.map((usuari) => (
-                    <tr>
+                    <tr key={usuari._id}>
                       <td>{usuari.nombre}</td>
                       <td>{usuari.apellido}</td>
                       <td>{usuari.email}</td>

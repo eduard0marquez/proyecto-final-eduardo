@@ -146,11 +146,11 @@ const FormEditUser = ({ isOpen, closeModal }) => {
             {...register("img")}
           />
           <Form.Label>Rol</Form.Label>
-          <Form.Control
-            placeholder={user.rol}
-            type="text"
-            {...register("rol")}
-          />
+          <Form.Select type="select" {...register("rol")}>
+            <option>{user.rol}</option>
+            <option value={"Administrador"}>Administrador</option>
+            <option value={"Cliente"}>Cliente</option>
+          </Form.Select>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
             Guardar Cambios

@@ -8,6 +8,7 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import Swal from "sweetalert2";
 import MercadoPago from "../MercadoPago/MercadoPago";
 import { agregarArticulo } from "../../helpers/mercadoPago";
+import { useForm } from "react-hook-form";
 
 // Inicializa Mercado Pago con tu public key
 
@@ -15,6 +16,9 @@ const id = JSON.parse(localStorage.getItem("id")) || null;
 
 function Cartt() {
   const [articulos, setArticuloss] = useState([]);
+  const [preferenceId, setPreferenceId] = useState(null);
+  const [cantidad, setInputCantidad] = useState(1);
+  const [nombree, setNombree] = useState(null);
 
   useEffect(() => {
     getComp(id).then((data) => {
@@ -27,7 +31,7 @@ function Cartt() {
   function eliminarComp(datos) {
     console.log(datos);
     Swal.fire({
-      title: `¿Segur@ que deseas quitar el articulo de Favoritos ?`,
+      title: `¿Segur@ que deseas quitar el articulo del carrito?`,
       showCancelButton: true,
       confirmButtonText: "Si",
     }).then((result) => {
@@ -49,11 +53,21 @@ function Cartt() {
     });
   }
 
-  function pagar() {
-    agregarArticulo().then((data) => {
-      console.log(data);
+  const metodosPagar = async () => {
+    console.log(articulos.pro);
+    const dato1 = articulos[0].producto.nombre;
+    const dato2 = cantidad;
+    const dato3 = articulos[0].producto.precio;
+    agregarArticulo(dato1, dato2, dato3).then((data) => {
+      if (data.producto) {
+        setPreferenceId(data.producto);
+      }
     });
-  }
+  };
+  const valor = (event) => {
+    setInputCantidad(event.target.value);
+  };
+  const nombre = () => {};
 
   return (
     <div>
@@ -74,10 +88,11 @@ function Cartt() {
                     <th>Acciones</th>
                   </tr>
                 </thead>
+
                 {articulos.map((artic) => (
                   <tbody>
                     <tr>
-                      <td>{artic.producto.nombre}</td>
+                      <td onChange={() => nombre()}>{artic.producto.nombre}</td>
                       <td>{artic.producto.descripcion}</td>
                       <td>${artic.producto.precio}</td>
                       <td>
@@ -87,10 +102,10 @@ function Cartt() {
                           id="numero"
                           placeholder="1"
                           required
-                          min={1}
+                          onChange={valor}
                         />
                       </td>
-                      <td></td>
+                      <td>{artic.producto.precio * cantidad}</td>
                       <td>
                         <a
                           onClick={() => {
@@ -114,17 +129,16 @@ function Cartt() {
               </Table>
               <div>
                 <div>
-                  <MercadoPago />
+                  <button
+                    className="btn buscar mb-5"
+                    onClick={() => {
+                      metodosPagar();
+                    }}
+                  >
+                    Mostrar Metodos de Pago
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  className="btn buscar "
-                  onClick={() => {
-                    pagar();
-                  }}
-                >
-                  Proceder al Pago
-                </button>
+                <div>{preferenceId && <MercadoPago datos={preferenceId} />}</div>
               </div>
             </div>
           </div>
