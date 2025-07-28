@@ -1,4 +1,4 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com/api/productos";
+const url = "http://localhost:3000/api/productos";
 const token = JSON.parse(localStorage.getItem("token"));
 const artic =localStorage.getItem("artic");
 
@@ -58,9 +58,9 @@ export const crearProducto = async (datos) => {
 
 //Actualizar Producto
 export const actualizarProducto = async (id, datos) => {
+    console.log(datos)
     try {
-        console.log(id)
-        const resp = await fetch(url + "/" + id, {
+        const resp = await fetch(url + '/' + id, {
             method: "PUT",
             body: JSON.stringify(datos),
             headers: {

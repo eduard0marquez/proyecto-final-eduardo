@@ -55,6 +55,7 @@ export const crearUsuario = async (datos) => {
 
 //Actualizar Usuario
 export const actualizarUsuario = async (id, datos) => {
+    console.log("datos :"+ datos+ "id :"+id)
     try {
         const resp = await fetch(url + "/" + id, {
             method: "PUT",

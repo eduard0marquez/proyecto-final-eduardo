@@ -33,8 +33,20 @@ const FormEditCategoria = ({ isOpen, closeModal }) => {
   } = useForm();
 
   const envioCategoria = async (data) => {
+    let nombr = consulta.nombre;
+    let descrip = consulta.descripcion;
+   
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = actualizarCategoria(categor, data)
+    if (data.descripcion != '') {
+      descrip = data.descripcion;
+    } else if ((data.nombre != '')) {
+      nombr = data.nombre;
+    }
+  
+    const datos = actualizarCategoria(categor, {
+     nombre: nombr,
+     descripcion: descrip,
+    })
       .then((datos) => {
         const { nombre } = data;
 
@@ -66,6 +78,7 @@ const FormEditCategoria = ({ isOpen, closeModal }) => {
       .catch((error) => {
         console.error("Error al obtener los datos:", error); // Manejar el error
       });
+
     {
       /** .then(response => {
           console.log(response.json());

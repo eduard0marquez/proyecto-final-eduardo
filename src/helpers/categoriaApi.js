@@ -1,4 +1,4 @@
-const url = "https://proyecto-final-eduardo-backend.onrender.com/api/categorias";
+const url = "http://localhost:3000/api/categorias";
 const token = JSON.parse(localStorage.getItem("token"));
 const param = 1;
 //Obtener categorias
@@ -60,15 +60,16 @@ export const crearCategoria = async (datos) => {
 
 //Actualizar Categoria
 export const actualizarCategoria = async (id, datos) => {
+  
     try {
         const resp = await fetch(url + "/" + id, {
             method: "PUT",
             body: JSON.stringify(datos),
             headers: {
-                "Content-type": "application/json; charset=UTF-8",
+               "Content-type": "application/json; charset=UTF-8",
                 "x-token": token,
             },
-        });
+     });
         const data = await resp.json();
         return data;
     } catch (error) {

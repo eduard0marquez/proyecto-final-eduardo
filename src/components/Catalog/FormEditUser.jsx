@@ -32,11 +32,46 @@ const FormEditUser = ({ isOpen, closeModal }) => {
   }, []);
 
   const envioRegistro = async (data) => {
+    let nomb = usuar.nombre;
+    let apellidos = usuar.apellido;
+    let mail = usuar.email;
+    let pass = usuar.password;
+    let direc = usuar.direccion;
+    let fechanac = usuar.fechaNacimiento;
+    let roll = usuar.rol;
+    if (data.nombre != '') {
+      nomb = data.nombre;
+    }
+    if (data.apellido != '') {
+      apellidos=data.apellido
+    }
+    if (data.email != '') {
+      mail = data.email;
+    }
+    if (data.password != '') {
+      pass = data.password;
+    }
+    if (data.fechaNacimiento != '') {
+      fechanac = data.fechaNacimiento;
+    }
+    if (data.rol != '') {
+      roll = data.rol;
+    }
+  
     /* Se ejecuta y se le pasa como valor los datos del form */
-    const datos = actualizarUsuario(data)
+    const datos = actualizarUsuario(usuar, {
+      nombre: nomb,
+      apellido: apellidos,
+      email: mail,
+      password: pass,
+      direccion: direc,
+      fechaNacimiento: fechanac,
+      rol: roll
+
+    })
       .then((datos) => {
-        const error = datos.errors;
-        if (datos.mensaje != "Usuario cargado correctamente") {
+        console.log(datos)
+        if (datos.mensaje != "Usuario acualizado correctamente") {
           Swal.fire({
             icon: "error",
             title: `¡Oops! ${error[0].msg}`,
@@ -92,7 +127,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
         <Form onSubmit={handleSubmit(envioRegistro)}>
           <Form.Label>Nombre</Form.Label>
           <Form.Control
-            required
+            
             placeholder={user.nombre}
             type="text"
             {...register("nombre")}
@@ -100,7 +135,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
 
           <Form.Label>Apellido</Form.Label>
           <Form.Control
-            required
+            
             placeholder={user.apellido}
             type="text"
             id="apellido"
@@ -109,7 +144,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
 
           <Form.Label>Email</Form.Label>
           <Form.Control
-            required
+            
             placeholder={user.email}
             type="email"
             {...register("email")}
@@ -117,7 +152,7 @@ const FormEditUser = ({ isOpen, closeModal }) => {
 
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
-            required
+           
             placeholder={user.password}
             type="password"
             id="password"

@@ -15,7 +15,7 @@ import { getCategorias } from "../../helpers/categoriaApi";
 import Swal from "sweetalert2";
 const articul = localStorage.getItem("artic");
 
-const FormEditArticulo = ({ isOpen, closeModal}) => {
+const FormEditArticulo = ({ isOpen, closeModal }) => {
   const [articulo, setArticulo] = useState([]);
   const [categorias, setCategorias] = useState([]);
 
@@ -24,7 +24,7 @@ const FormEditArticulo = ({ isOpen, closeModal}) => {
       setArticulo(data.producto);
     });
   }, []);
-useEffect(() => {
+  useEffect(() => {
     getCategorias().then((data) => {
       setCategorias(data.categorias);
     });
@@ -37,11 +37,67 @@ useEffect(() => {
   } = useForm();
 
   const envioProducto = async (data) => {
+    let nombr = articulo.nombre;
+    let prec = articulo.precio;
+    let descrip = articulo.descripcion;
+    let fabric = articulo.fabricante;
+    let imag = articulo.img;
+    let stoc = articulo.stock;
+    let categori = articulo.categoria._id;
+
+    if (data.nombre != "") {
+      nombr = data.nombre;
+    }
+    if (data.precio != "") {
+      prec = data.precio;
+    }
+    if (data.descripcion != "") {
+      descrip = data.descripcion;
+    }
+    if (data.fabricante != "") {
+      fabric = data.fabricante;
+    }
+    if (data.img != "") {
+      imag = data.img;
+    }
+    if (data.stock != "") {
+      stoc = data.stock;
+    }
+    if (data.categoria != "") {
+      categori = data.categoria;
+    }
+
+    console.log(
+      "nombre : " +
+        nombr +
+        " precio : " +
+        prec +
+        " descripcion : " +
+        descrip +
+        " fabricante : " +
+        fabric +
+        " imagen :" +
+        imag +
+        "stock : " +
+        stoc +
+        "categoria:" +
+        categori
+    );
+
     /* Se mandan los datos al metodo crear categoria  */
-    const datos = actualizarProducto(articul,data)
+    const datos = actualizarProducto(articul, {
+      nombre: nombr,
+      precio: prec,
+      descripcion: descrip,
+      fabricante: fabric,
+      img: imag,
+      stock: stoc,
+      destacado: data.destacado,
+      categoria: categori,
+    })
       .then((datos) => {
         const { nombre } = data;
-        console.log(data)
+
         if (datos.msg === `El artículo ${nombre} ya existe`) {
           Swal.fire({
             icon: "error",
@@ -65,12 +121,12 @@ useEffect(() => {
           });
           reset();
           closeModal(true);
-          localStorage.removeItem("artic");
         }
       })
       .catch((error) => {
         console.error("Error al obtener los datos:", error); // Manejar el error
       });
+
     {
       /** .then(response => {
               console.log(response.json());
@@ -117,6 +173,8 @@ useEffect(() => {
             id="descripcion"
             {...register("descripcion")}
           />
+          <Form.Label>Destacado</Form.Label>
+          <Form.Check checked={articulo.destacado} {...register("destacado")} />
 
           <Form.Label>Fabricante</Form.Label>
           <Form.Control
@@ -139,12 +197,12 @@ useEffect(() => {
             {...register("stock")}
           />
           <Form.Label>Categoria</Form.Label>
-          <Form.Select  type="select" {...register("categoria")}>
-                      <option>{articulo.categoria.nombre}</option>
-                      {categorias.map((categor) => (
-                        <option value={categor._id}>{categor.nombre}</option>
-                      ))}
-                    </Form.Select>
+          <Form.Select type="select" {...register("categoria")}>
+            <option value={""}>{articulo.categoria.nombre}</option>
+            {categorias.map((categor) => (
+              <option value={categor._id}>{categor.nombre}</option>
+            ))}
+          </Form.Select>
 
           <Button type="submit" className="w-100 mt-3 bg-primary p-2">
             Guardar Cambios

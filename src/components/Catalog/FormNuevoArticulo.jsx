@@ -21,9 +21,8 @@ const FormNuevoArticulo = ({ isOpen, closeModal }) => {
 
   const obtenerCategorias = getCategorias().then((obtenerCategorias) => {
     const { id } = obtenerCategorias;
-    console.log();
   });
-  console.log();
+ 
 
   const {
     register,
