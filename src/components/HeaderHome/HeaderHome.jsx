@@ -9,20 +9,22 @@ import { Carousel } from "react-bootstrap";
 function HeaderHome() {
   return (
     <div
-      className="container slide"
+      className=" slide"
       style={{ marginTop: 95, marginBottom: 20 }}
     >
-      <Carousel>
-        <Carousel.Item>
-          <img className="carrusel" src={Plomeria} alt="" />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="carrusel" src={Construccion} alt="" />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="carrusel" src={Servicios} alt="" />
-        </Carousel.Item>
-      </Carousel>
+      
+        <Carousel className="container">
+          <Carousel.Item>
+            <img className="carrusel" src={Plomeria} alt="" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="carrusel" src={Construccion} alt="" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="carrusel" src={Servicios} alt="" />
+          </Carousel.Item>
+        </Carousel>
+      
     </div>
   );
 }

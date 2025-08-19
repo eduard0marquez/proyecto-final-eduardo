@@ -31,13 +31,40 @@ margin-bottom: 1em;
 .descripcion{
     font-size: .8em;
     font-family: "Roboto", sans-serif;
+    margin-bottom: 2rem;
 }
 .precio{
     font-size: 1.5em;
     font-family: "Roboto", sans-serif;
     
 }
+
+.shop{
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    display: flex;
+}
 .cards{
-    margin-bottom:5rem ;
+  width: 100%;
+  margin-bottom:5rem ;
+  
+       
 }
 
+.card-footerr {
+   margin-top: 1rem;
+   bottom: 0;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translate( -50%)
+}
+
+.articles{
+    left: -36px;
+    transform: translate( 26%)
+  
+}

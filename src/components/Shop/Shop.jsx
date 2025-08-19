@@ -128,10 +128,10 @@ function Shop() {
 
   return (
     <>
-      <div className="container">
-        <div className=" container row   cards vw-100 cards ">
+      <div className="container shop">
+        <div className="  cards row  ">
           {articulos?.map((artic) => (
-            <Card key={artic._id} className="  shadow col-5 col-md-3 col-lg-2 ">
+            <Card key={artic._id} className="  shadow col-5 col-md-3 col-lg-2 articles">
               <Card.Img className="product-image" variant="" src={artic.img} />
               <Card.Body>
                 <Card.Title className="title "> {artic.nombre}</Card.Title>
@@ -144,7 +144,7 @@ function Shop() {
                   <br />
                   <strong className="precio">${artic.precio}</strong> MXN
                 </Card.Text>
-                <Card.Text className="text-center ">
+                <Card.Text className="text-center card-footerr ">
                   <a
                     type="button"
                     className="btn col-6"
